@@ -18,7 +18,7 @@ var signoutServer = require('./routes/signoutRoute.js');
 // MIDDLEWARE
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
-app.use(morgan('combined'));
+app.use(morgan('dev'));
 // TODO: add cookie secret!
 app.use(cookie());
 app.use('/public', express.static(path.join(__dirname, '/../compiled/client')));
@@ -31,12 +31,23 @@ app.use('/querydb', dbServer);
 app.use('/signin', authServer);
 app.use('/signup', newUserServer);
 app.use('/signout', signoutServer);
+
+// 404 error handler
 app.use(function (req, res, next) {
-  res.status(404).send('Sorry--we can\'t find that')
+  var err = new Error('404 Page Not Found.');
+  err.status = 404;
+  next(err);
+});
+
+// error handler
+app.use(function (err, req, res, next) {
+  console.log(err);
+  var status = err.status || 500;
+  res.status(status).send(err.message);
 });
 
 var port = process.env.PORT || 1337;
 // LISTENER
 app.listen(port, function () {
-  console.log('Satan is listening.')
+  console.log('Satan is listening on port: ' + port);
 });
