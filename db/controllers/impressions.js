@@ -35,7 +35,7 @@ exports.getImpression = function(userId, albumId) {
 };
 
 exports.updateImpression = function(id, impression) {
-  return knex('album_impression').where('id', id).update(impression).then();
+  return knex('album_impression').where('id', id).update(impression);
 };
 
 exports.insertImpression = function(username, album, rating, impression, date) {
