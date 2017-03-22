@@ -21,6 +21,7 @@ var dbServer = require('./routes/dbRoutes.js');
 var signoutServer = require('./routes/signoutRoute.js');
 var followerServer = require('./routes/followRoutes.js');
 
+
 // MIDDLEWARE
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
