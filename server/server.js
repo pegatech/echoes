@@ -19,6 +19,8 @@ var authServer = require('./routes/authRoutes.js');
 var newUserServer = require('./routes/newUserRoutes.js');
 var dbServer = require('./routes/dbRoutes.js');
 var signoutServer = require('./routes/signoutRoute.js');
+var followerServer = require('./routes/followRoutes.js');
+
 
 // MIDDLEWARE
 app.use(bodyParser.urlencoded({extended: false}));
@@ -36,6 +38,7 @@ app.use('/querydb', dbServer);
 app.use('/signin', authServer);
 app.use('/signup', newUserServer);
 app.use('/signout', signoutServer);
+app.use('/api/follower', followerServer);
 
 // 404 error handler
 app.use(function (req, res, next) {

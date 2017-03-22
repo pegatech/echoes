@@ -4,7 +4,14 @@ class ResultsList extends React.Component {
 		super(props);
 	}
 
+
 	render () {
+
+		if (this.props.albums.length === 1) {
+			$('#add-impression').show();
+		} else {
+			$('#add-impression').hide();
+		}
 
 		return (
 			<div>
@@ -18,6 +25,7 @@ class ResultsList extends React.Component {
 					)
 				}
 			</div>
+
 		);
 	}
 
