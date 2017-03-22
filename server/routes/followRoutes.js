@@ -15,21 +15,22 @@ router.get('/', function(req, res, next) {
         .catch(function(err) {
           res.send(err);
         });
-    })
+    });
 
 });
 
 router.post('/', function(req, res, next) {
   var username = req.cookies.username;
   var followerUsername = req.body.follower;
-  var userId, followId;
+  var userId;
+  var followId;
 
   user.getUser(username)
     .then(function(result) {
       userId = result.id;
       user.getUser(followerUsername)
         .then(function(result) {
-          followId = result.id
+          followId = result.id;
           follower.addFollower(userId, followId)
             .then(function(result) {
               follower.addFollower(followId, userId)
@@ -38,33 +39,36 @@ router.post('/', function(req, res, next) {
                 })
                 .catch(function(err) {
                   console.error(err);
-                })
-            })
-        })
-    })
+                });
+            });
+        });
+    });
 });
 
 router.post('/:follower', function(req, res, next) {
   var username = req.cookies.username;
   var followerUsername = req.params.follower;
   var userId;
+  var followId;
 
   user.getUser(username)
     .then(function(result) {
       userId = result.id;
       user.getUser(followerUsername)
         .then(function(result) {
-          follower.deleteFollower(userId, result.id)
+          followId = result.id;
+          follower.deleteFollower(userId, followId)
             .then(function(result) {
-              res.sendStatus(200);
-            })
-            .catch(function(err) {
-              console.error(err);
+              follower.deleteFollower(followId, userId)
+                .then(function(result) {
+                  res.sendStatus(200);
+                })
+                .catch(function(err) {
+                  console.error(err);
+                });
             });
-        })
-    })
-
-
+        });
+    });
 });
 
 module.exports = router;
