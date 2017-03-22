@@ -1,43 +1,70 @@
 var express = require('express');
 var router = express.Router();
 var follower = require('../../db/controllers/follower.js');
+var user = require('../../db/controllers/users.js');
 
 router.get('/', function(req, res, next) {
   var username = req.cookies.username;
 
-  follower.getFollowers(username)
+  user.getUser(username)
     .then(function(result) {
-      res.send(result);
+      follower.getFollowers(result.id)
+        .then(function(result) {
+          res.send(result);
+        })
+        .catch(function(err) {
+          res.send(err);
+        });
     })
-    .catch(function(err) {
-      console.error(err);
-    });
+
 });
 
 router.post('/', function(req, res, next) {
   var username = req.cookies.username;
-  var follower = req.body.follower;
+  var followerUsername = req.body.follower;
+  var userId, followId;
 
-  follower.addFollower(username, follower)
+  user.getUser(username)
     .then(function(result) {
-      res.sendStatus(200);
+      userId = result.id;
+      user.getUser(followerUsername)
+        .then(function(result) {
+          followId = result.id
+          follower.addFollower(userId, followId)
+            .then(function(result) {
+              follower.addFollower(followId, userId)
+                .then(function(result) {
+                  res.sendStatus(200);
+                })
+                .catch(function(err) {
+                  console.error(err);
+                })
+            })
+        })
     })
-    .catch(function(err) {
-      console.error(err);
-    });
 });
 
-router.post('/:username', function(req, res, next) {
+router.post('/:follower', function(req, res, next) {
   var username = req.cookies.username;
-  var follower = req.params.username;
+  var followerUsername = req.params.follower;
+  var userId;
 
-  follower.deleteFollower(username, follower)
+  user.getUser(username)
     .then(function(result) {
-      res.sendStatus(200);
+      userId = result.id;
+      user.getUser(followerUsername)
+        .then(function(result) {
+          follower.deleteFollower(userId, result.id)
+            .then(function(result) {
+              res.sendStatus(200);
+            })
+            .catch(function(err) {
+              console.error(err);
+            });
+        })
     })
-    .catch(function(err) {
-      console.error(err);
-    });
+
+
 });
 
-module.exports = routers;
+module.exports = router;

@@ -60,10 +60,10 @@ exports.up = function(knex, Promise) {
 
     knex.schema.createTable('following', function(table) {
       table.increments('id').primary();
-      table.string('user_username');
-      table.string('follwer_username');
-      table.foreign('user_username').references('users.username');
-      table.foreign('follwer_username').references('users.username');
+      table.integer('user_id');
+      table.integer('follower_id');
+      table.foreign('user_id').references('users.id');
+      table.foreign('follower_id').references('users.id');
     })
   ]);
 };
