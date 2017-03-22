@@ -32,7 +32,6 @@ router.post('/', function (req, res, next) {
   var date = req.body.date.slice(0, 10);
   var username = req.cookies.username;
 
-
   // insert the impression
   impressions.insertImpression(username, album, rating, impression, date)
     // if impression inserted successfully
