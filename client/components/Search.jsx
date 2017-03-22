@@ -6,7 +6,9 @@ class Search extends React.Component {
 		this.state = {
 			term: '',
 			results: [],
-			selectedListenDate: null
+			selectedListenDate: null,
+      rating: '',
+      impression: ''
 		};
 	}
   // sets default date for calendar input field
@@ -50,7 +52,6 @@ class Search extends React.Component {
 			type: 'GET',
 			dataType: 'jsonp',
 			success: (data) => {
-				console.log(data);
 				// changes state of results, triggering view change
 				this.setState({results: data.results});
 			},
@@ -64,7 +65,12 @@ class Search extends React.Component {
 	// send selected album and listen date to db via post request
 	addNewEntry (album, date) {
 		// send object with keys album and date
-		var newEntry = {album: album, date: date.slice(0,10)};
+		var newEntry = {
+      album: album,
+      date: date.slice(0,10),
+      impression: this.state.impression,
+      rating: this.state.rating
+    };
 		// user can only submit one album
 		if (this.state.results.length === 1) {
 			$.ajax({
@@ -81,7 +87,9 @@ class Search extends React.Component {
 					this.setState({
 						term: '',
 						results: [],
-						selectedListenDate: date
+						selectedListenDate: date,
+            impression: '',
+            rating: ''
 					});
           // gets user entries from db and rerenders entry list
 					this.props.getUserEntries();
@@ -96,13 +104,22 @@ class Search extends React.Component {
 		}
 	}
 
+  change (rating, impression) {
+    if (rating !== '' && impression !== '') {
+      this.state.rating = rating;
+      this.state.impression = impression;
+    }
+  }
+
 	render() {
 
 		// only renders the add album button if one album is selected
 		if (this.state.results.length === 1) {
 			$('#add-album-btn').show();
+      $('#add-impression').show();
 		} else {
 			$('#add-album-btn').hide();
+      $('#add-impression').hide();
 		}
 
     return (
@@ -113,9 +130,12 @@ class Search extends React.Component {
 					<br></br>
 		      <SearchBar search={_.debounce(this.iTunesSearch.bind(this), 300)}
 						         className="search-bar" />
-									 <div id='add-album-btn' onClick={() => {this.addNewEntry(this.state.results[0], this.state.selectedListenDate)}}>
+									 <div id='add-album-btn' onClick={() => {this.addNewEntry(this.state.results[0], this.state.selectedListenDate), this.state.impression, this.state.rating}}>
 									   <button type="button" className="btn btn-default">Add this album</button>
 					         </div>
+                    <div id='add-impression'>
+                      <ImpressBox change={this.change.bind(this)}/>
+                    </div>
 				</div>
 				<div className="results-container">
 					<ResultsList albums={this.state.results}
