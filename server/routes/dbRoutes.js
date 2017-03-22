@@ -79,7 +79,6 @@ router.post('/', function (req, res, next) {
       // get a user impression
       return impressions.getImpression(userId, albumId)
         .then(impression => {
-          console.log(impression);
           // insert an impression for the user if doesn't exist
           if (impression) {
             return impression.id;

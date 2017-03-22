@@ -56,6 +56,14 @@ exports.up = function(knex, Promise) {
       table.date('date').notNullable();
       table.foreign('album_impression_id').references('album_impression.id');
       table.unique(['album_impression_id', 'date']);
+    }),
+
+    knex.schema.createTable('following', function(table) {
+      table.increments('id').primary();
+      table.string('user_username');
+      table.string('follwer_username');
+      table.foreign('user_username').references('users.username');
+      table.foreign('follwer_username').references('users.username');
     })
   ]);
 };
@@ -67,6 +75,7 @@ exports.down = function(knex, Promise) {
     knex.schema.dropTable('song'),
     knex.schema.dropTable('album'),
     knex.schema.dropTable('artist'),
+    knex.schema.dropTable('following'),
     knex.schema.dropTable('users')
   ]);
 };
