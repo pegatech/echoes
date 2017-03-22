@@ -4,8 +4,8 @@ class ImpressBox extends React.Component {
     this.state = {
       rating: '',
       impression: ''
-    }
-  };
+    };
+  }
 
   handleInputChange(e) {
     const target = e.target;
@@ -14,7 +14,7 @@ class ImpressBox extends React.Component {
 
     this.setState({
       [name]: value
-    })
+    });
   }
 
   render() {
@@ -43,7 +43,7 @@ class ImpressBox extends React.Component {
           <option value={10}>10</option>
         </select>
       </form>
-)
+    );
   }
 }
 
