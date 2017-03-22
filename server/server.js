@@ -1,3 +1,6 @@
+// PROMISE LIBRARY
+global.Promise = require('bluebird');
+
 //DEPENDENCIES
 var express = require('express');
 var bodyParser = require('body-parser');
@@ -7,6 +10,7 @@ var pg = require('pg');
 var db = require('../db/db.js');
 var cookie = require('cookie-parser');
 var app = express();
+
 
 // ROUTE MODULES
 var appServer = require('./routes/appRoutes.js');
