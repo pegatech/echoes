@@ -54,6 +54,9 @@ class Profile extends React.Component {
       <div className="container">
         <div className='col-xs-8'>
           <h2>Impressions:</h2>
+          {this.state.allEntries.map((elt) => {
+            return  <UserProfile impression={elt.impression}/>
+          })}
         </div>
         <div className='col-xs-4'>
           <h2>Following:</h2>
