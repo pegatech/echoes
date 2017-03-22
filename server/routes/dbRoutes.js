@@ -3,32 +3,24 @@ var router = express.Router();
 var path = require('path');
 var util = require('../utilities.js');
 var knex = require('../../db/db.js');
+var impressions = require('../../db/controllers/impressions');
+var artists = require('../../db/controllers/artists');
+var albums = require('../../db/controllers/albums');
+var dates = require('../../db/controllers/dates');
 
 // queries database and returns user's album entries
 router.get('/', function (req, res) {
   // get username from the cookie
   var username = req.cookies.username;
   // find all listen instances by the user
-  knex.from('users')
-      .join('album_impression', 'users.id', 'album_impression.user_id')
-      .where('users.username', username)
-      .join('album', 'album_impression.album_id', 'album.id')
-      .join('artist', 'artist.id', 'album.artist_id')
-      .join('listen_date', 'listen_date.album_impression_id', 'album_impression.id')
-      .select('users.user',
-              'listen_date.date',
-              'album.title', 'artist.name', 'album.genre', 'album.year',
-              'album_impression.rating', 'album_impression.impression', 'album_impression.id',
-              'album.art_url60', 'album.art_url100')
-      .orderBy('listen_date.date', 'desc')
-      .then(function (result) {
-        // send the result back to the user
-        console.log(result);
-        res.status(200).send(result);
-      })
-      .catch(function (err) {
-        console.log('Problem grabbing user info');
-      })
+  impressions.getImpressions(username)
+    .then(function (result) {
+      // send the result back to the user
+      res.status(200).send(result);
+    })
+    .catch(function (err) {
+      next(err);
+    });
 });
 
 // post new album to the database
@@ -38,6 +30,7 @@ router.post('/', function (req, res) {
   var date = req.body.date.slice(0, 10);
   var username = req.cookies.username;
   // check if artist is in db
+
   knex('artist')
     .where({name : album.artistName})
     .select('id')
