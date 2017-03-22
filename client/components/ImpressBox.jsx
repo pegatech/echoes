@@ -1,6 +1,5 @@
 class ImpressBox extends React.Component {
   constructor (props) {
-    console.log(props);
     super(props);
     this.state = {
       rating: '',
@@ -20,7 +19,7 @@ class ImpressBox extends React.Component {
 
   render() {
     return (
-      <div onChange={this.props.change(this.state.rating, this.state.impression)}>
+      <form onChange={this.props.change(this.state.rating, this.state.impression)}>
         <textarea className="form-control"
                   id="impression"
                   name="impression"
@@ -43,7 +42,7 @@ class ImpressBox extends React.Component {
           <option value={9}>9</option>
           <option value={10}>10</option>
         </select>
-      </div>
+      </form>
 )
   }
 }
