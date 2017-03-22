@@ -6,9 +6,7 @@ class Search extends React.Component {
 		this.state = {
 			term: '',
 			results: [],
-			selectedListenDate: null,
-      rating: '',
-      impression: ''
+			selectedListenDate: null
 		};
 	}
   // sets default date for calendar input field
@@ -67,9 +65,7 @@ class Search extends React.Component {
 		// send object with keys album and date
 		var newEntry = {
       album: album,
-      date: date.slice(0,10),
-      impression: this.state.impression,
-      rating: this.state.rating
+      date: date.slice(0,10)
     };
 		// user can only submit one album
 		if (this.state.results.length === 1) {
@@ -87,9 +83,7 @@ class Search extends React.Component {
 					this.setState({
 						term: '',
 						results: [],
-						selectedListenDate: date,
-            impression: '',
-            rating: ''
+						selectedListenDate: date
 					});
           // gets user entries from db and rerenders entry list
 					this.props.getUserEntries();
@@ -103,13 +97,6 @@ class Search extends React.Component {
 			});
 		}
 	}
-
-  change (rating, impression) {
-    if (rating !== '' && impression !== '') {
-      this.state.rating = rating;
-      this.state.impression = impression;
-    }
-  }
 
 	render() {
 
@@ -133,9 +120,6 @@ class Search extends React.Component {
 									 <div id='add-album-btn' onClick={() => {this.addNewEntry(this.state.results[0], this.state.selectedListenDate), this.state.impression, this.state.rating}}>
 									   <button type="button" className="btn btn-default">Add this album</button>
 					         </div>
-                    <div id='add-impression'>
-                      <ImpressBox change={this.change.bind(this)}/>
-                    </div>
 				</div>
 				<div className="results-container">
 					<ResultsList albums={this.state.results}
