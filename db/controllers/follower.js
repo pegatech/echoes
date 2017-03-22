@@ -18,7 +18,7 @@ exports.addFollower = function(username, followerUsername) {
 
 exports.deleteFollower = function(username, followerUsername) {
   return knex('follower')
-    .where('user_id', username)
-    .where('follower_id', followerUsername)
+    .where('user_username', username)
+    .where('follower_username', followerUsername)
     .del();
 };
