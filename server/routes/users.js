@@ -3,12 +3,15 @@ var router = express.Router();
 
 var path = require('path');
 var users = require('../../db/controllers/users');
-var util = require('./utilities');
+var util = require('../utilities');
 
 module.exports = function(passport) {
 
   router.get('/', util.isAuth, function(req, res, next) {
-    res.json(req.user.username);
+    res.json({
+      id: req.user.id,
+      username: req.user.username
+    });
   });
 
   router.post(

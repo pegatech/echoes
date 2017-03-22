@@ -1,7 +1,7 @@
 var login = require('./login');
 var signup = require('./signup');
 
-var users = require('../../db/collections/users');
+var users = require('../../db/controllers/users');
 
 module.exports = function(passport) {
 
