@@ -35,16 +35,16 @@ class Profile extends React.Component {
     });
   }
 
-  // greetUser () {
-  //   // if current user is identified
-  //   if (this.state.currentUser) {
-  //     // greet them by name
-  //     return `Hello, ${this.state.currentUser}!`
-  //   } else {
-  //     // new users are greetedwith Hello
-  //     return `Hello!`
-  //   }
-  // }
+  greetUser () {
+    // if current user is identified
+    if (this.state.currentUser) {
+      // greet them by name
+      return `Hello, ${this.state.currentUser}!`
+    } else {
+      // new users are greetedwith Hello
+      return `Hello!`
+    }
+  }
 
 
   render () {
