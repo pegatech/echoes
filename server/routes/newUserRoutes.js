@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var path = require('path');
-var knex = require('../../db/db.js');
+var users = require('../../db/controllers/users');
 var util = require('../utilities.js');
 
 // get requests served static signup file
@@ -10,47 +10,31 @@ router.get('/', function (req, res) {
 });
 
 // post requests add user to the database and begin session
-router.post('/', function (req, res) {
+router.post('/', function (req, res, next) {
   // get username and password from request body
   var user = req.body.user;
   var username = req.body.username;
   var password = req.body.password;
-  // knex query to search database for user
-  var query = knex('users').where('username', username);
 
-  //query returns promise
-  query.then(function (result) {
-    // if the query returns a user
-    if (result.length) {
-      // respond with status
-      res.status(401).redirect('/signup');
-    } else {
-      // hash password with bcrypt before executing the insert statement
-      util.hashPassword(password, function(err, hash) {
-        if (err) {
-          console.log(err);
-          throw err;
-        } else {
-          // store hash in password DB.
-          knex('users').returning(['id', 'user', 'username'])
-                      .insert({user: user, username: username, password: hash})
-                      .then(function (result) {
-                        // set cookies
-                        res.cookie('signedIn', true);
-                        res.cookie('username', username);
-                        // redirect to dashboard
-                        res.status(302).redirect('/');
-                      })
-                      .catch(function (err) {
-                        throw err;
-                      });
-        }
-      });
-    }
-  }).catch(function (error) {
-    console.log(error);
-    throw error;
-  })
+  users.getUser(username)
+    .then(user => {
+
+      if (user) {
+        res.status(401).redirect('/signup');
+      } else {
+
+        // insert new user
+        return users.insertUser(user, username, password)
+          .then(user => {
+            res.cookie('signedIn', true);
+            res.cookie('username', username);
+            res.status(302).redirect('/');
+          });
+      }
+    })
+    .catch(err => {
+      next(err);
+    });
 });
 
 module.exports = router;

@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var path = require('path');
-var knex = require('../../db/db.js');
+var users = require('../../db/controllers/users');
 var util = require('../utilities.js');
 
 // get requests are served static sign in page
@@ -10,48 +10,43 @@ router.get('/', function (req, res) {
 });
 
 // post requests check username and password and redirect
-router.post('/', function (req, res) {
+router.post('/', function (req, res, next) {
   // get username and password from request body
   var username = req.body.username;
   var password = req.body.password;
+
   // knex query to search database for user
-  var query = knex('users').where('username', username);
-  query.then(function(result) {
-    //if user does not exist
-    if (!result.length) {
-      // respond with status
-      res.status(401).redirect('/signin');
-      // if user exists
-    } else {
-      // find their hashed password in the db
-      var hash = knex('users').where('username', username).select('password');
-      hash.then(function (hash) {
-        //knex returns an array with hash object at index 0
-        hash = hash[0].password;
-         util.checkPassword(password, hash, function (err, result) {
-           if (err) {
-             throw err;
-           } else {
-             // if password is correct
-             if (result) {
-               // set cookies
-               res.cookie('signedIn', true);
-               res.cookie('username', username);
-               // redirect to dashboard
-               res.redirect('/');
-               // if password is incorrect
-             } else {
-               // send error
-               res.status(401).redirect('/signin');
-             }
-           }
-         });
-      })
-      .catch(function (err) {
-        console.log('Something went wrong comparing passwords!');
-        throw err;
-      });
-    }
-  });
+  users.getUser(username)
+    .then(user => {
+
+      // check if user exists
+      if (!user) {
+        res.status(401).redirect('/signin');
+      } else {
+
+        util.checkPassword(password, user.password, (err, result) => {
+
+          if (err) {
+            next(err);
+          }
+
+          // check for valid password
+          if (result) {
+
+            // set cookies and redirect to dashboard
+            res.cookie('signedIn', true);
+            res.cookie('username', username);
+            res.redirect('/');
+
+          } else {
+            res.status(401).redirect('/signin');
+          }
+        });
+      }
+    })
+    .catch(err => {
+      next(err);
+    });
 });
+
 module.exports = router;
