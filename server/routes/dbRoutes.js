@@ -27,79 +27,18 @@ router.get('/', function (req, res, next) {
 // post new album to the database
 router.post('/', function (req, res, next) {
   var album = req.body.album;
+  var rating = req.body.rating;
+  var impression = req.body.impression;
   var date = req.body.date.slice(0, 10);
   var username = req.cookies.username;
 
-  // set up promises for Promise.all()
-  var getUserId = users.getUser(username).then(user => user.id);
-  var getAlbumId = artists.getArtist(album.artistName)
 
-    // see if artist is in the database
-    .then(artist => {
+  // insert the impression
+  impressions.insertImpression(username, album, rating, impression, date)
 
-      // insert artist into the database if it doesn't exist
-      if (artist) {
-        return artist.id;
-      } else {
-        return artists.insertArtist(album.artistName).then(artist => artist.id);
-      }
-    })
-
-    // see if the album is in the database
-    .then(artistId => {
-
-      return albums.getAlbum(album.collectionName)
-        .then(result => {
-
-          // insert album into the database if it doesn't exist
-          if (result) {
-            return result.id;
-          } else {
-            return albums.insertAlbum(
-              album.collectionName,
-              artistId,
-              album.primaryGenreName,
-              album.releaseDate.slice(0, 4),
-              album.artworkUrl60,
-              album.artworkUrl100
-            ).then(album => album.id);
-          }
-        });
-    });
-
-  // wait for userId and albumId to come back
-  Promise.all([getUserId, getAlbumId])
-    .then(results => {
-
-      var userId = results[0];
-      var albumId = results[1];
-
-      // get a user impression
-      return impressions.getImpression(userId, albumId)
-        .then(impression => {
-
-          // insert an impression for the user if doesn't exist
-          if (impression) {
-            return impression.id;
-          } else {
-            return impressions.insertImpression(userId, albumId)
-              .then(impression => impression.id);
-          }
-        });
-    })
-
-    .then(impressionId => {
-      return dates.getDate(impressionId, date)
-        .then(listenDate => {
-
-          if (listenDate) {
-            res.status(400).send('You already listend to this album that day');
-          } else {
-            dates.insertDate(impressionId, date).then(() => {
-              res.status(201).send('Successful Post!');
-            });
-          }
-        });
+    // if impression inserted successfully
+    .then(() => {
+      res.status(200).send('Successful Post!');
     })
 
     .catch(err => {
