@@ -35,7 +35,6 @@ router.post('/', function (req, res, next) {
 
   // insert the impression
   impressions.insertImpression(username, album, rating, impression, date)
-
     // if impression inserted successfully
     .then(() => {
       res.status(200).send('Successful Post!');
