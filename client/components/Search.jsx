@@ -103,10 +103,8 @@ class Search extends React.Component {
 		// only renders the add album button if one album is selected
 		if (this.state.results.length === 1) {
 			$('#add-album-btn').show();
-      $('#add-impression').show();
 		} else {
 			$('#add-album-btn').hide();
-      $('#add-impression').hide();
 		}
 
     return (
@@ -117,7 +115,7 @@ class Search extends React.Component {
 					<br></br>
 		      <SearchBar search={_.debounce(this.iTunesSearch.bind(this), 300)}
 						         className="search-bar" />
-									 <div id='add-album-btn' onClick={() => {this.addNewEntry(this.state.results[0], this.state.selectedListenDate), this.state.impression, this.state.rating}}>
+									 <div id='add-album-btn' onClick={() => {this.addNewEntry(this.state.results[0], this.state.selectedListenDate)}}>
 									   <button type="button" className="btn btn-default">Add this album</button>
 					         </div>
 				</div>
