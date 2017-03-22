@@ -6,7 +6,7 @@ class Profile extends React.Component {
       viewingEntry: '',
       allEntries: [],
       currentUser: '',
-      watched: []
+      watched: ['larry', 'curly', 'mo', 'bob', 'window']
   }
 }
 
@@ -55,11 +55,14 @@ class Profile extends React.Component {
         <div className='col-xs-8'>
           <h2>Impressions:</h2>
           {this.state.allEntries.map((elt) => {
-            return  <UserProfile impression={elt.impression}/>
+            return  <UserProfile art_url60={elt.art_url60} name={elt.name} impression={elt.impression}/>
           })}
         </div>
         <div className='col-xs-4'>
           <h2>Following:</h2>
+          {this.state.watched.map( (username) => {
+            return <Watching name={username} />
+          })}
         </div>
       </div>
     </div>
