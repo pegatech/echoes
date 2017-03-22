@@ -130,7 +130,7 @@ class Search extends React.Component {
 					<br></br>
 		      <SearchBar search={_.debounce(this.iTunesSearch.bind(this), 300)}
 						         className="search-bar" />
-									 <div id='add-album-btn' onClick={() => {this.addNewEntry(this.state.results[0], this.state.selectedListenDate), this.state.impression, this.state.rating}}>
+									 <div id='add-album-btn' onClick={() => {this.addNewEntry(this.state.results[0], this.state.selectedListenDate)}}>
 									   <button type="button" className="btn btn-default">Add this album</button>
 					         </div>
                     <div id='add-impression'>
