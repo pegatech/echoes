@@ -97,10 +97,16 @@ class App extends React.Component {
             <a href="/signout" className='navbar-right signout'>
               <button className="btn btn-default landing"><span>Sign Out</span></button>
             </a>
+            <a href="/">
             <img className='navbar-center header logo' src="styles/logo.svg"></img>
+            </a>
           </header>
           <div  className="col-md-2 search">
-            <Search getUserEntries={this.getUserEntries.bind(this)}/>
+            <Search allEntries={this.state.allEntries}
+                    getUserEntries={this.getUserEntries.bind(this)}
+                    updateUserEntries={this.updateUserEntries.bind(this)}
+                    deleteUserEntries={this.deleteUserEntries.bind(this)}
+            />
           </div>
           <div className="col-md-10">
             <table className="table-responsive table">

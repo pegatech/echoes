@@ -50,7 +50,6 @@ class Search extends React.Component {
 			type: 'GET',
 			dataType: 'jsonp',
 			success: (data) => {
-				console.log(data);
 				// changes state of results, triggering view change
 				this.setState({results: data.results});
 			},
@@ -64,7 +63,10 @@ class Search extends React.Component {
 	// send selected album and listen date to db via post request
 	addNewEntry (album, date) {
 		// send object with keys album and date
-		var newEntry = {album: album, date: date.slice(0,10)};
+		var newEntry = {
+      album: album,
+      date: date.slice(0,10)
+    };
 		// user can only submit one album
 		if (this.state.results.length === 1) {
 			$.ajax({
