@@ -45,3 +45,9 @@ exports.insertImpression = function(userId, albumId) {
       return results[0];
     });
 };
+
+exports.deleteImpression = function(id) {
+  return knex('album_impression')
+    .where('id', id)
+    .del();
+};

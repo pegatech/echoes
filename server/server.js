@@ -1,5 +1,6 @@
 // PROMISE LIBRARY
 global.Promise = require('bluebird');
+global._ = require('lodash');
 
 //DEPENDENCIES
 var express = require('express');

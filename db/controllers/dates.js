@@ -4,9 +4,12 @@ exports.getDate = function(impressionId, date) {
   return knex('listen_date')
     .where('album_impression_id', impressionId)
     .where('date', date)
-    .then(results => {
-      return results[0];
-    });
+    .then(results => results[0]);
+};
+
+exports.getDates = function(impressionId) {
+  return knex('listen_date')
+    .where('album_impression_id', impressionId);
 };
 
 exports.insertDate = function(impressionId, date) {
@@ -16,7 +19,12 @@ exports.insertDate = function(impressionId, date) {
       date: date,
       'album_impression_id': impressionId
     })
-    .then(results => {
-      return results[0];
-    });
+    .then(results => results[0]);
+};
+
+exports.deleteDate = function(impressionId, date) {
+  return knex('listen_date')
+    .where('album_impression_id', impressionId)
+    .where('date', date)
+    .del();
 };

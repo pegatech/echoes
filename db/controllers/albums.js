@@ -1,11 +1,11 @@
 var knex = require('../db.js');
 
-exports.getAlbum = function(name) {
-  return knex('album').where({ name: name });
+exports.getAlbum = function(title) {
+  return knex('album').where({ title: title }).then(results => results[0]);
 };
 
 exports.getAlbumById = function(id) {
-  return knex('album').where({ id: id });
+  return knex('album').where({ id: id }).then(results => results[0]);
 };
 
 exports.insertAlbum = function(title, artistId, genre, year, art60, art100) {
