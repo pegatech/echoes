@@ -5,15 +5,15 @@ class UserProfileList extends React.Component {
 
   render () {
     return (
-      <tbody className='container-fluid entryList'>
+      <tbody className='container-fluid'>
         <tr className='row'>
-          <th className='col-md-2'>
+          <th className='profile-list-title profile-list-left col-md-2'>
             Album
           </th>
-          <th className="col-md-5">
+          <th className="profile-list-title profile-list-left col-md-5">
             Artist
           </th>
-          <th className="col-md-5">
+          <th className="profile-list-title profile-list-left col-md-5">
             Impressions
           </th>
         </tr>

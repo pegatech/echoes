@@ -6,7 +6,7 @@ class Profile extends React.Component {
       viewingEntry: '',
       allEntries: [],
       currentUser: '',
-      watched: ['larry', 'curly', 'mo', 'bob', 'window']
+      following: ['larry', 'curly', 'mo', 'bob', 'window']
   }
 }
 
@@ -48,35 +48,21 @@ class Profile extends React.Component {
 
 
   render () {
-    return (
-    <div className="profile">
-        <div className="container-fluid app">
-          <header className="navbar">
-            <div><h2 className="greeting">{this.greetUser()}</h2></div>
-            <a href="/signout" className='navbar-right signout'>
-              <button className="btn btn-default landing"><span>Sign Out</span></button>
-            </a>
-            <img className='navbar-center header logo' src="styles/logo.svg"></img>
-            <h1 className="profile rating "> Profile: {this.state.currentUser} </h1>
-          </header>   
-      
+    return (  
       <div className="container">
-        <div className='col-xs-8'>
-          <h2 className="rating">Impressions:</h2>
+        <div className='col-md-8'>
+          <h2 className="profile-header">Impressions:</h2>
           <table className="table-responsive table">
             <UserProfileList allEntries={this.state.allEntries} />
           </table>
         </div>
-        <div className='col-xs-4'>
-          <h2 className="rating">Watching:</h2>
-          {this.state.watched.map( (username) => {
-            return <Watching name={username} />
-          })}
+        <div className='col-md-4'>
+          <h2 className="profile-header">Following:</h2>
+          <table className="table-responsive table">
+            <FollowerList allFollower={this.state.following} />
+          </table>
         </div>
       </div>
-    </div>
-    </div>
-
     )
   }
 }

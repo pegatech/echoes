@@ -197,6 +197,29 @@ table tr.entry:hover {
 }
 
 /*-------------------------
+PROFILE
+--------------------------*/
+
+.profile-header {
+  font-family: 'Raleway', sans-serif;
+  font-weight: 300;
+  font-size: 24px;
+  color: #fff;
+  margin-bottom: 10px;
+  text-align:center;
+}
+
+.profile-list-title {
+  font-family: 'Raleway', sans-serif;
+  font-weight: bold;
+  text-align:center;
+}
+
+.profile-list-left {
+  text-align:left;
+}
+
+/*-------------------------
 TEXT
 -------------------------*/
 
