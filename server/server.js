@@ -42,13 +42,10 @@ app.use('/node_modules', express.static(path.join(__dirname, '/../node_modules')
 app.use('/styles', express.static(path.join(__dirname, '/../client/styles')));
 
 // ROUTERS
-app.use('/', appServer);
-app.use('/api/users', usersServer(passport));
 app.use('/querydb', dbServer);
-app.use('/signin', authServer);
-app.use('/signup', newUserServer);
-app.use('/signout', signoutServer);
+app.use('/api/users', usersServer(passport));
 app.use('/api/follower', followerServer);
+app.use('/', appServer);
 
 // 404 error handler
 app.use(function (req, res, next) {

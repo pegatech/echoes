@@ -1,6 +1,6 @@
 const Login = ({state, login, handleInputChange}) => (
   state.isAuthenticated ? (
-    <Redirect to="/router/dashboard" />
+    <Redirect to="/dashboard" />
   ) : (
     <div className="form-signin">
       <form onSubmit={login}>
@@ -31,7 +31,7 @@ const Login = ({state, login, handleInputChange}) => (
           <input className="btn btn-default" type="submit" value="Sign In" />
           <br />
           <br />
-          <Link to="/router/signup">Create an account</Link>
+          <Link to="/signup">Create an account</Link>
         </fieldset>
       </form>
     </div>

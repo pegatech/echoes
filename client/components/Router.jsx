@@ -93,27 +93,27 @@ class Router extends React.Component {
             <img src="/styles/logo.svg"></img>
           </div>
 
-          <Route path="/router/login" render={props => (
+          <Route path="/login" render={props => (
             <Login login={this.login}
               handleInputChange={this.handleInputChange}
               state={this.state}/>
           )}/>
 
-          <Route path="/router/signup" render={props => (
+          <Route path="/signup" render={props => (
             <Signup signup={this.signup}
               handleInputChange={this.handleInputChange}
               state={this.state} />
           )} />
 
-          <Route path="/router/dashboard" render={props => (
+          <Route path="/dashboard" render={props => (
             this.state.isAuthenticated ? (
               <App logout={this.logout} />
             ) : (
-              <Redirect to="/router" />
+              <Redirect to="/" />
             )
           )}/>
 
-          <Route exact path="/router" component={Landing} />
+          <Route exact path="/" component={Landing} />
 
         </div>
       </BrowserRouter>

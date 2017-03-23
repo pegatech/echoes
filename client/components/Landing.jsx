@@ -6,10 +6,10 @@ const Landing = () => (
           <div className="col-md-6 text-center">
             <img src="/styles/logo.svg" className="logo" />
             <p className="blurb">Your living listening history.</p>
-            <Link to="/router/signup" className="nav-button">
+            <Link to="/signup" className="nav-button">
               <button className="btn btn-default landing"><span>Sign Up</span></button>
             </Link>
-            <Link to="/router/login" className="nav-button">
+            <Link to="/login" className="nav-button">
               <button className="btn btn-default landing"><span>Sign In</span></button>
             </Link>
           </div>
