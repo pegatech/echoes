@@ -16,6 +16,18 @@ class Router extends React.Component {
     this.logout = this.logout.bind(this);
   }
 
+  componentDidMount() {
+    $.ajax({
+      method: 'GET',
+      url: '/api/users',
+      success: (data, statusText, xhr) => {
+        this.setState({
+          isAuthenticated: true
+        });
+      }
+    });
+  }
+
   handleInputChange(e) {
     const name = e.target.name;
     const value = e.target.value;
@@ -78,35 +90,33 @@ class Router extends React.Component {
       <BrowserRouter>
         <div>
           <div className="router-nav">
-            <img src="styles/logo.svg"></img>
+            <img src="/styles/logo.svg"></img>
           </div>
 
           <Route path="/router/login" render={props => (
             <Login login={this.login}
-                   handleInputChange={this.handleInputChange}
-                   state={this.state}/>
+              handleInputChange={this.handleInputChange}
+              state={this.state}/>
           )}/>
 
           <Route path="/router/signup" render={props => (
             <Signup signup={this.signup}
-                    handleInputChange={this.handleInputChange}
-                    state={this.state} />
+              handleInputChange={this.handleInputChange}
+              state={this.state} />
           )} />
 
+          <Route path="/router/dashboard" render={props => (
+            this.state.isAuthenticated ? (
+              <App logout={this.logout} />
+            ) : (
+              <Redirect to="/router" />
+            )
+          )}/>
+
           <Route exact path="/router" component={Landing} />
-          <PrivateRoute path="/router/dashboard" component={App} state={this.state} />
+
         </div>
       </BrowserRouter>
     );
   }
 }
-
-const PrivateRoute = ({ component, path, state }) => (
-  <Route path={path} render={props => (
-    state.isAuthenticated ? (
-      React.createElement(component, props)
-    ) : (
-      <Redirect to="/router/landing" />
-    )
-  )}/>
-);

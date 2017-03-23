@@ -11,30 +11,30 @@ const Signup = ({ signup, handleInputChange, state }) => (
           First name:
           <br />
           <input type="text"
-                 name="user"
-                 value={state.user}
-                 onChange={handleInputChange}
-                 className="form-control"
-                 placeholder="Name"
-                 required />
+            name="user"
+            value={state.user}
+            onChange={handleInputChange}
+            className="form-control"
+            placeholder="Name"
+            required />
           <br /> Username:
           <br />
           <input type="text"
-                 name="username"
-                 value={state.username}
-                 onChange={handleInputChange}
-                 className="form-control"
-                 placeholder="Username"
-                 required />
+            name="username"
+            value={state.username}
+            onChange={handleInputChange}
+            className="form-control"
+            placeholder="Username"
+            required />
           <br /> Password:
           <br />
           <input type="password"
-                 name="password"
-                 value={state.password}
-                 onChange={handleInputChange}
-                 className="form-control"
-                 placeholder="Password"
-                 required />
+            name="password"
+            value={state.password}
+            onChange={handleInputChange}
+            className="form-control"
+            placeholder="Password"
+            required />
           <br />
           <input className="btn btn-default" type="submit" value="Sign Up" />
           <br />

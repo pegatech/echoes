@@ -4,7 +4,7 @@ const Landing = () => (
       <div className="container-fluid">
           <div className="col-md-3"></div>
           <div className="col-md-6 text-center">
-            <img src="styles/logo.svg" className="logo" />
+            <img src="/styles/logo.svg" className="logo" />
             <p className="blurb">Your living listening history.</p>
             <Link to="/router/signup" className="nav-button">
               <button className="btn btn-default landing"><span>Sign Up</span></button>
