@@ -1,12 +1,11 @@
 class ImpressBox extends React.Component {
   constructor (props) {
-    console.log(props);
     super(props);
     this.state = {
       rating: '',
       impression: ''
-    }
-  };
+    };
+  }
 
   handleInputChange(e) {
     const target = e.target;
@@ -15,12 +14,12 @@ class ImpressBox extends React.Component {
 
     this.setState({
       [name]: value
-    })
+    });
   }
 
   render() {
     return (
-      <div onChange={this.props.change(this.state.rating, this.state.impression)}>
+      <form onChange={this.props.change(this.state.rating, this.state.impression)}>
         <textarea className="form-control"
                   id="impression"
                   name="impression"
@@ -43,8 +42,8 @@ class ImpressBox extends React.Component {
           <option value={9}>9</option>
           <option value={10}>10</option>
         </select>
-      </div>
-)
+      </form>
+    );
   }
 }
 
