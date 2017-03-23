@@ -6,7 +6,7 @@ var albums = require('./albums');
 
 exports.getImpressions = function(username) {
   return knex('users')
-    .join('album_impression', 'users.username', 'album_impression.user_id')
+    .join('album_impression', 'users.id', 'album_impression.user_id')
     .where('users.username', username)
     .join('album', 'album_impression.album_id', 'album.id')
     .join('artist', 'artist.id', 'album.artist_id')
@@ -27,7 +27,7 @@ exports.getImpressions = function(username) {
 
 exports.getImpressionsById = function(id) {
   return knex('users')
-    .join('album_impression', 'users.username', 'album_impression.user_id')
+    .join('album_impression', 'users.id', 'album_impression.user_id')
     .where('users.id', id)
     .join('album', 'album_impression.album_id', 'album.id')
     .join('artist', 'artist.id', 'album.artist_id')
