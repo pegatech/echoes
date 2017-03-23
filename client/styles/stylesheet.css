@@ -167,6 +167,10 @@ a.signout {
 	display: none;
 }
 
+#add-impression {
+  display: none;
+}
+
 .btn-group button {
 	margin-left:170px;
 }

@@ -6,8 +6,14 @@ class Follower extends React.Component {
   render() {
     return (
       <div>
-        {this.props.followerName}
+        <img src={this.props.art}/>
+        <div>{this.props.name}</div>
+        <div>{this.props.title}</div>
+        <div>{this.props.impression}</div>
+        <div>{this.props.date}</div>
       </div>
     )
   }
 }
+
+window.Follower = Follower;
