@@ -9,15 +9,30 @@ class Router extends React.Component {
       password: '',
       user: ''
     };
+
+    this.handleInputChange = this.handleInputChange.bind(this);
+    this.login = this.login.bind(this);
+    this.signup = this.signup.bind(this);
+    this.logout = this.logout.bind(this);
   }
 
-  login(username, password) {
+  handleInputChange(e) {
+    const name = e.target.name;
+    const value = e.target.value;
+
+    this.setState({
+      [name]: value
+    });
+  }
+
+  login(e) {
+    e.preventDefault();
     $.ajax({
       method: 'POST',
       url: '/api/users/login',
       data: {
-        username: username,
-        password: password
+        username: this.state.username,
+        password: this.state.password
       },
       success: (data, statusText, xhr) => {
         this.setState({
@@ -27,14 +42,15 @@ class Router extends React.Component {
     });
   }
 
-  signup(user, username, password) {
+  signup(e) {
+    e.preventDefault();
     $.ajax({
       method: 'POST',
       url: '/api/users/signup',
       data: {
-        user: user,
-        username: username,
-        password: password
+        user: this.state.user,
+        username: this.state.username,
+        password: this.state.password
       },
       success: function() {
         this.setState({
@@ -44,7 +60,8 @@ class Router extends React.Component {
     });
   }
 
-  logout() {
+  logout(e) {
+    e.preventDefault();
     $.ajax({
       method: 'POST',
       url: '/api/users/logout',
@@ -64,22 +81,32 @@ class Router extends React.Component {
             <img src="styles/logo.svg"></img>
           </div>
 
-          <Route path="/router" component={Landing} />
-          <Route path="/router/login" component={Login} />
-          <Route path="/router/signup" component={Signup} />
-          <PrivateRoute path="/router/dashboard" component={App} />
+          <Route path="/router/login" render={props => (
+            <Login login={this.login}
+                   handleInputChange={this.handleInputChange}
+                   state={this.state}/>
+          )}/>
+
+          <Route path="/router/signup" render={props => (
+            <Signup signup={this.signup}
+                    handleInputChange={this.handleInputChange}
+                    state={this.state} />
+          )} />
+
+          <Route exact path="/router" component={Landing} />
+          <PrivateRoute path="/router/dashboard" component={App} state={this.state} />
         </div>
       </BrowserRouter>
     );
   }
 }
 
-const PrivateRoute = ({ component, path }) => (
+const PrivateRoute = ({ component, path, state }) => (
   <Route path={path} render={props => (
-    auth.isAuthenticated ? (
+    state.isAuthenticated ? (
       React.createElement(component, props)
     ) : (
-      <Redirect to="/router/login" />
+      <Redirect to="/router/landing" />
     )
   )}/>
 );
