@@ -234,6 +234,17 @@ h2.greeting {
   margin-bottom: 0px;
 }
 
+h1.profile {
+  font-family: 'Raleway', sans-serif;
+  font-weight: 500;
+  font-size: 50px;
+  color: #fff;
+  background-color: #4b6ecc;
+  margin-top: 20px;
+  margin-left: 20px;
+  margin-bottom: 0px;
+}
+
 .header.logo {
   width: 25%;
 	margin-top:-80px;

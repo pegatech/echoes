@@ -50,21 +50,31 @@ class Profile extends React.Component {
   render () {
     return (
     <div className="profile">
-      <h1> {this.state.currentUser} Profile</h1>
+        <div className="container-fluid app">
+          <header className="navbar">
+            <div><h2 className="greeting">{this.greetUser()}</h2></div>
+            <a href="/signout" className='navbar-right signout'>
+              <button className="btn btn-default landing"><span>Sign Out</span></button>
+            </a>
+            <img className='navbar-center header logo' src="styles/logo.svg"></img>
+            <h1 className="profile rating "> Profile: {this.state.currentUser} </h1>
+          </header>   
+      
       <div className="container">
         <div className='col-xs-8'>
-          <h2>Impressions:</h2>
+          <h2 className="rating">Impressions:</h2>
           {this.state.allEntries.map((elt) => {
             return  <UserProfile art_url60={elt.art_url60} name={elt.name} impression={elt.impression}/>
           })}
         </div>
         <div className='col-xs-4'>
-          <h2>Following:</h2>
+          <h2 className="rating">Watching:</h2>
           {this.state.watched.map( (username) => {
             return <Watching name={username} />
           })}
         </div>
       </div>
+    </div>
     </div>
 
     )
