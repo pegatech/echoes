@@ -6,6 +6,7 @@ class Follower extends React.Component {
   render() {
     return (
       <div>
+        <h4>{this.props.username}</h4>
         <img src={this.props.art}/>
         <div>{this.props.name}</div>
         <div>{this.props.title}</div>

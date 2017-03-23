@@ -12,13 +12,16 @@ router.get('/', util.isAuth, function(req, res, next) {
     .then(function(result) {
       follower.getFollowers(result.id)
         .then(function(result) {
-          user.getUserById(result[1].follower_id)
+          var allImpress = result.map((follower) => {
+            return (
+                impressions.getImpressions(follower.follower_id)
+            );
+          });
+
+          Promise.all(allImpress)
             .then(function(result) {
-              impressions.getImpressions(result.username)
-                .then(function(result) {
-                  res.send(result);
-                });
-            });
+              res.send(result);
+            })
         });
     });
 });

@@ -4,14 +4,14 @@ var dates = require('./dates');
 var artists = require('./artists');
 var albums = require('./albums');
 
-exports.getImpressions = function(username) {
+exports.getImpressions = function(id) {
   return knex('users')
     .join('album_impression', 'users.id', 'album_impression.user_id')
-    .where('users.username', username)
+    .where('users.id', id)
     .join('album', 'album_impression.album_id', 'album.id')
     .join('artist', 'artist.id', 'album.artist_id')
     .join('listen_date', 'listen_date.album_impression_id', 'album_impression.id')
-    .select('users.user',
+    .select('users.username',
             'listen_date.date',
             'album.title',
             'artist.name',

@@ -11,7 +11,6 @@ class FollowerList extends React.Component {
     this.setState({
       allImpression: nextProps.allFollowerImpression
     })
-    console.log(nextProps);
   }
 
   render() {
@@ -22,12 +21,17 @@ class FollowerList extends React.Component {
             <h1>Follower Feed</h1>
               {this.state.allImpression.map((impression) => {
                 return(
-                  <Follower name={impression.name}
-                            title={impression.title}
-                            art={impression.art_url60}
-                            date={impression.date.slice(0, 10)}
-                            impression={impression.impression}
-                            key={impression.id}/>
+                  impression.map((follow) => {
+                    return (
+                      <Follower impression={follow.impression}
+                                art={follow.art_url60}
+                                name={follow.name}
+                                title={follow.title}
+                                date={follow.date.slice(0, 10)}
+                                username={follow.username}
+                                key={follow.id}/>
+                    )
+                  })
                 )
               })}
           </div>
