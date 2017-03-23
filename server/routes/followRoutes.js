@@ -17,7 +17,7 @@ router.get('/', util.isAuth, function(req, res, next) {
               impressions.getImpressions(result.username)
                 .then(function(result) {
                   res.send(result);
-                })
+                });
             });
         });
     });
@@ -37,11 +37,11 @@ router.post('/', util.isAuth, function(req, res, next) {
           followId = result.id;
           follower.addFollower(userId, followId)
             .then(function(result) {
-                  res.sendStatus(200);
-                })
-                .catch(function(err) {
-                  console.error(err);
-                });
+              res.sendStatus(200);
+            })
+            .catch(function(err) {
+              console.error(err);
+            });
         });
     });
 });
@@ -58,11 +58,11 @@ router.post('/:follower', util.isAuth, function(req, res, next) {
         .then(function(result) {
           follower.deleteFollower(userId, result.id)
             .then(function(result) {
-                res.sendStatus(200);
-              })
-              .catch(function(err) {
-                console.error(err);
-              });
+              res.sendStatus(200);
+            })
+            .catch(function(err) {
+              console.error(err);
+            });
         });
     });
 });
