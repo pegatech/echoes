@@ -64,7 +64,7 @@ class Router extends React.Component {
         username: this.state.username,
         password: this.state.password
       },
-      success: function() {
+      success: () => {
         this.setState({
           isAuthenticated: true
         });
