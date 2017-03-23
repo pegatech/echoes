@@ -4,6 +4,7 @@ class Router extends React.Component {
     super(props);
 
     this.state = {
+      waitForAuth: true,
       isAuthenticated: false,
       username: '',
       password: '',
@@ -20,9 +21,15 @@ class Router extends React.Component {
     $.ajax({
       method: 'GET',
       url: '/api/users',
-      success: (data, statusText, xhr) => {
+      success: () => {
         this.setState({
-          isAuthenticated: true
+          isAuthenticated: true,
+          waitForAuth: false
+        });
+      },
+      error: () => {
+        this.setState({
+          waitForAuth: false
         });
       }
     });
@@ -112,7 +119,7 @@ class Router extends React.Component {
             this.state.isAuthenticated ? (
               <App logout={this.logout} />
             ) : (
-              <Redirect to="/" />
+              !this.state.waitForAuth ? <Redirect to="/login" /> : null
             )
           )}/>
 
