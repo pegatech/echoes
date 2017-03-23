@@ -108,3 +108,4 @@ class UpdateBox extends React.Component {
 }
 
 window.UpdateBox = UpdateBox;
+
