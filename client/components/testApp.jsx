@@ -25,22 +25,6 @@ class TestApp extends React.Component {
     }
   }
 
-  getAllFollower() {
-    $.ajax({
-      url: '/api/follower/',
-      type: 'GET',
-      success: (response) => {
-        this.setState({
-          allFollower: response
-        });
-        console.log(response);
-      },
-      error: (err) => {
-        console.error(err);
-      }
-    })
-  }
-
   getAllFollowerImpression() {
     $.ajax({
       url: '/api/follower/',
