@@ -14,7 +14,7 @@ router.get('/', util.isAuth, function(req, res, next) {
         .then(function(result) {
           var allImpress = result.map((follower) => {
             return (
-                impressions.getImpressions(follower.follower_id)
+                impressions.getImpressionsById(follower.follower_id)
             );
           });
 

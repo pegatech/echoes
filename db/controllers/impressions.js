@@ -4,9 +4,30 @@ var dates = require('./dates');
 var artists = require('./artists');
 var albums = require('./albums');
 
-exports.getImpressions = function(id) {
+exports.getImpressions = function(username) {
   return knex('users')
-    .join('album_impression', 'users.id', 'album_impression.user_id')
+    .join('album_impression', 'users.username', 'album_impression.user_id')
+    .where('users.username', username)
+    .join('album', 'album_impression.album_id', 'album.id')
+    .join('artist', 'artist.id', 'album.artist_id')
+    .join('listen_date', 'listen_date.album_impression_id', 'album_impression.id')
+    .select('users.username',
+            'listen_date.date',
+            'album.title',
+            'artist.name',
+            'album.genre',
+            'album.year',
+            'album_impression.rating',
+            'album_impression.impression',
+            'album_impression.id',
+            'album.art_url60',
+            'album.art_url100')
+    .orderBy('listen_date.date', 'desc');
+};
+
+exports.getImpressionsById = function(id) {
+  return knex('users')
+    .join('album_impression', 'users.username', 'album_impression.user_id')
     .where('users.id', id)
     .join('album', 'album_impression.album_id', 'album.id')
     .join('artist', 'artist.id', 'album.artist_id')

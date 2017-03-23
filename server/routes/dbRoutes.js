@@ -11,7 +11,7 @@ var users = require('../../db/controllers/users');
 
 // queries database and returns user's album entries
 router.get('/', util.isAuth, function (req, res, next) {
-  // get username 
+  // get username
   var username = req.user.username;
   // find all listen instances by the user
   impressions.getImpressions(username)
@@ -33,6 +33,7 @@ router.post('/', util.isAuth, function (req, res, next) {
   var username = req.user.username;
 
   // insert the impression
+
   impressions.insertImpression(username, album, rating, impression, date)
     // if impression inserted successfully
     .then(() => {

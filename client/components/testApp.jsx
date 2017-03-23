@@ -3,7 +3,6 @@ class TestApp extends React.Component {
     super (props);
     // will hold state of all entries in database and current search values
     this.state = {
-      allFollower: [],
       allFollowerImpression: []
     }
   }
