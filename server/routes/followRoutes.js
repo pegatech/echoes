@@ -2,9 +2,10 @@ var express = require('express');
 var router = express.Router();
 var follower = require('../../db/controllers/follower.js');
 var user = require('../../db/controllers/users.js');
+var util = require('../utilities');
 
-router.get('/', function(req, res, next) {
-  var username = req.cookies.username;
+router.get('/', util.isAuth, function(req, res, next) {
+  var username = req.user.username;
 
   user.getUser(username)
     .then(function(result) {
@@ -18,8 +19,8 @@ router.get('/', function(req, res, next) {
     });
 });
 
-router.post('/', function(req, res, next) {
-  var username = req.cookies.username;
+router.post('/', util.isAuth, function(req, res, next) {
+  var username = req.user.username;
   var followerUsername = req.body.follower;
   var userId;
   var followId;
@@ -44,8 +45,8 @@ router.post('/', function(req, res, next) {
     });
 });
 
-router.post('/:follower', function(req, res, next) {
-  var username = req.cookies.username;
+router.post('/:follower', util.isAuth, function(req, res, next) {
+  var username = req.user.username;
   var followerUsername = req.params.follower;
   var userId;
   var followId;

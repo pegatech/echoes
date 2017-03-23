@@ -10,9 +10,9 @@ var dates = require('../../db/controllers/dates');
 var users = require('../../db/controllers/users');
 
 // queries database and returns user's album entries
-router.get('/', function (req, res, next) {
-  // get username from the cookie
-  var username = req.cookies.username;
+router.get('/', util.isAuth, function (req, res, next) {
+  // get username 
+  var username = req.user.username;
   // find all listen instances by the user
   impressions.getImpressions(username)
     .then(function (result) {
@@ -25,12 +25,12 @@ router.get('/', function (req, res, next) {
 });
 
 // post new album to the database
-router.post('/', function (req, res, next) {
+router.post('/', util.isAuth, function (req, res, next) {
   var album = req.body.album;
   var rating = req.body.rating;
   var impression = req.body.impression;
   var date = req.body.date.slice(0, 10);
-  var username = req.cookies.username;
+  var username = req.user.username;
 
   // insert the impression
   impressions.insertImpression(username, album, rating, impression, date)
@@ -45,7 +45,7 @@ router.post('/', function (req, res, next) {
 });
 
 // add/update impression
-router.post('/update', function (req, res, next) {
+router.post('/update', util.isAuth, function (req, res, next) {
   var id = req.body.id;
   var rating = req.body.rating;
   var impression = req.body.impression;
@@ -77,7 +77,7 @@ router.post('/update', function (req, res, next) {
 });
 
 // remove listen_date
-router.post('/delete', function (req, res, next) {
+router.post('/delete', util.isAuth, function (req, res, next) {
   var entry = req.body;
 
   // delete the listen_date
