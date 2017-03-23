@@ -63,9 +63,9 @@ class Profile extends React.Component {
       <div className="container">
         <div className='col-xs-8'>
           <h2 className="rating">Impressions:</h2>
-          {this.state.allEntries.map((elt) => {
-            return  <UserProfile art_url60={elt.art_url60} name={elt.name} impression={elt.impression}/>
-          })}
+          <table className="table-responsive table">
+            <UserProfileList allEntries={this.state.allEntries} />
+          </table>
         </div>
         <div className='col-xs-4'>
           <h2 className="rating">Watching:</h2>

@@ -18,9 +18,9 @@ class UserProfileList extends React.Component {
           </th>
         </tr>
         {this.props.allEntries.map( (entry) => {
-          return <UserProfile art_url60={this.props.art_url60} 
-                  name={this.props.name}
-                  impression={this.props.impression} />
+          return <UserProfile art_url60={entry.art_url60} 
+                  name={entry.name}
+                  impression={entry.impression} />
         })}
       </tbody>
     )
