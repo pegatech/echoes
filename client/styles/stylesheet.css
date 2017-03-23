@@ -411,3 +411,18 @@ table tr.entry:hover {
 td {
 	vertical-align: middle;
 }
+
+
+/*-------------------------
+      	  ROUTER
+---------------------------*/
+.router-nav {
+	height: 200px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.router-nav img {
+	height: 90%;
+}

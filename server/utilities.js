@@ -31,7 +31,17 @@ exports.checkPasswordAsync = function(enteredPassword, hash) {
       if (err) {
         return reject(err);
       }
-      fulfill(hash);
+      fulfill(result);
     });
   });
+};
+
+exports.isAuth = function(req, res, next) {
+  if (req.isAuthenticated()) {
+    next();
+  } else {
+    var err = new Error('Unauthorized');
+    err.status = 401;
+    next(err);
+  }
 };

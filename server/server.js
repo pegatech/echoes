@@ -7,9 +7,10 @@ var express = require('express');
 var bodyParser = require('body-parser');
 var morgan = require('morgan');
 var path = require('path');
-var pg = require('pg');
 var db = require('../db/db.js');
 var cookie = require('cookie-parser');
+var passport = require('passport');
+var expressSession = require('express-session');
 var app = express();
 
 
@@ -20,7 +21,15 @@ var newUserServer = require('./routes/newUserRoutes.js');
 var dbServer = require('./routes/dbRoutes.js');
 var signoutServer = require('./routes/signoutRoute.js');
 var followerServer = require('./routes/followRoutes.js');
+var usersServer = require('./routes/users.js');
 
+// PASSPORT
+app.use(expressSession({ secret: 'super-secret-key' }));
+app.use(passport.initialize());
+app.use(passport.session());
+
+// INITIALIZE PASSPORT STRATEGIES
+require('./passport/init')(passport);
 
 // MIDDLEWARE
 app.use(bodyParser.urlencoded({extended: false}));
@@ -33,12 +42,10 @@ app.use('/node_modules', express.static(path.join(__dirname, '/../node_modules')
 app.use('/styles', express.static(path.join(__dirname, '/../client/styles')));
 
 // ROUTERS
-app.use('/', appServer);
 app.use('/querydb', dbServer);
-app.use('/signin', authServer);
-app.use('/signup', newUserServer);
-app.use('/signout', signoutServer);
+app.use('/api/users', usersServer(passport));
 app.use('/api/follower', followerServer);
+app.use('/', appServer);
 
 // 404 error handler
 app.use(function (req, res, next) {
