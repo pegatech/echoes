@@ -16,10 +16,7 @@ var app = express();
 
 // ROUTE MODULES
 var appServer = require('./routes/appRoutes.js');
-var authServer = require('./routes/authRoutes.js');
-var newUserServer = require('./routes/newUserRoutes.js');
 var dbServer = require('./routes/dbRoutes.js');
-var signoutServer = require('./routes/signoutRoute.js');
 var followerServer = require('./routes/followRoutes.js');
 var usersServer = require('./routes/users.js');
 
