@@ -100,7 +100,8 @@ class Router extends React.Component {
             <img src="/styles/logo.svg"></img>
             {this.state.isAuthenticated ? (
               <Link className="btn btn-default" to="/profile">Profile</Link>
-              ) : null}
+            ) : null}
+            <a href="#" onClick={this.logout} className='btn btn-default'>Logout</a>
           </div>
 
           <Route path="/login" render={props => (
