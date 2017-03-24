@@ -4,10 +4,12 @@ class Router extends React.Component {
     super(props);
 
     this.state = {
+      waitForAuth: true,
       isAuthenticated: false,
-      username: '',
-      password: '',
-      user: ''
+      user: null,
+      formUsername: '',
+      formPassword: '',
+      formUser: ''
     };
 
     this.handleInputChange = this.handleInputChange.bind(this);
@@ -19,10 +21,17 @@ class Router extends React.Component {
   componentDidMount() {
     $.ajax({
       method: 'GET',
-      url: '/api/users',
-      success: (data, statusText, xhr) => {
+      url: '/api/users/?current=true',
+      success: (data) => {
         this.setState({
-          isAuthenticated: true
+          isAuthenticated: true,
+          waitForAuth: false,
+          user: data
+        });
+      },
+      error: () => {
+        this.setState({
+          waitForAuth: false
         });
       }
     });
@@ -43,11 +52,12 @@ class Router extends React.Component {
       method: 'POST',
       url: '/api/users/login',
       data: {
-        username: this.state.username,
-        password: this.state.password
+        username: this.state.formUsername,
+        password: this.state.formPassword
       },
-      success: (data, statusText, xhr) => {
+      success: (data) => {
         this.setState({
+          user: data,
           isAuthenticated: true
         });
       }
@@ -60,12 +70,13 @@ class Router extends React.Component {
       method: 'POST',
       url: '/api/users/signup',
       data: {
-        user: this.state.user,
-        username: this.state.username,
-        password: this.state.password
+        user: this.state.formUser,
+        username: this.state.formUsername,
+        password: this.state.formPassword
       },
-      success: () => {
+      success: (data) => {
         this.setState({
+          user: data,
           isAuthenticated: true
         });
       }
@@ -79,6 +90,7 @@ class Router extends React.Component {
       url: '/api/users/logout',
       success: () => {
         this.setState({
+          user: null,
           isAuthenticated: false
         });
       }
@@ -92,8 +104,12 @@ class Router extends React.Component {
           <div className="router-nav">
             <img src="/styles/logo.svg"></img>
             {this.state.isAuthenticated ? (
-              <Link className="btn btn-default" to="/profile">Profile</Link>
-              ) : null}
+              <div>
+                <a href="#" onClick={this.logout} className='btn btn-default'>Logout</a>
+                <Link to="/search" className="btn btn-default" >User Search</Link>
+                <Link className="btn btn-default" to="/profile">Profile</Link>
+              </div>
+            ) : null}
           </div>
 
           <Route path="/login" render={props => (
@@ -106,21 +122,29 @@ class Router extends React.Component {
             <Signup signup={this.signup}
               handleInputChange={this.handleInputChange}
               state={this.state} />
-          )} />
+          )}/>
 
           <Route path="/dashboard" render={props => (
             this.state.isAuthenticated ? (
-              <App logout={this.logout} />
+              <App />
             ) : (
-              <Redirect to="/" />
+              !this.state.waitForAuth ? <Redirect to="/login" /> : null
             )
           )}/>
 
-          <Route path="/profile" render={props => (
+          <Route path="/search" render={props => (
             this.state.isAuthenticated ? (
-              <Profile logout={this.logout} />
+              <SearchUser />
             ) : (
-              <Redirect to="/" />
+              !this.state.waitForAuth ? <Redirect to="/login" /> : null
+            )
+          )}/>
+
+          <Route path="/profile/:username?" render={props => (
+            this.state.isAuthenticated ? (
+              <Profile user={this.state.user} target={props.match.params.username}/>
+            ) : (
+              !this.state.waitForAuth ? <Redirect to="/login" /> : null
             )
           )}/>
 

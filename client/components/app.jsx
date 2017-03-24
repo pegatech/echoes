@@ -94,9 +94,6 @@ class App extends React.Component {
         <div className="container-fluid app">
           <header className="navbar">
             <div><h2 className="greeting">{this.greetUser()}</h2></div>
-            <a href="#" onClick={this.props.logout} className='navbar-right signout'>
-              <button className="btn btn-default landing"><span>Sign Out</span></button>
-            </a>
             <img className='navbar-center header logo' src="/styles/logo.svg"></img>
           </header>
           <div  className="col-md-2 search">

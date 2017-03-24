@@ -8,17 +8,30 @@ var util = require('../utilities');
 module.exports = function(passport) {
 
   router.get('/', util.isAuth, function(req, res, next) {
-    res.json({
-      id: req.user.id,
-      username: req.user.username
-    });
+
+    if (req.query.current) {
+      res.json(_.pick(req.user, ['id', 'user', 'username']));
+    } else {
+
+      var query = req.query.search || '';
+
+      users.getUsers(query)
+
+        .then(results => {
+          res.json(results);
+        })
+
+        .catch(err => {
+          next(err);
+        });
+    }
   });
 
   router.post(
     '/login',
     passport.authenticate('login'),
     function(req, res, next) {
-      res.sendStatus(200);
+      res.json(_.pick(req.user, ['id', 'user', 'username']));
     }
   );
 
@@ -26,7 +39,7 @@ module.exports = function(passport) {
     '/signup',
     passport.authenticate('signup'),
     function(req, res, next) {
-      res.sendStatus(200);
+      res.json(_.pick(req.user, ['id', 'user', 'username']));
     }
   );
 

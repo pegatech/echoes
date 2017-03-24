@@ -27,23 +27,28 @@ router.get('/', util.isAuth, function(req, res, next) {
 });
 
 router.get('/:username', util.isAuth, function(req, res, next) {
-  var username = req.user.username;
+  var username = req.params.username;
+
   user.getUser(username)
     .then(function(result) {
-      follower.getFollowers(result.id)
+
+      return follower.getFollowers(result.id)
         .then(function(result) {
+
           var allFollower = result.map((follower) => {
-            return (
-              user.getUserById(follower.follower_id)
-            );
+            return (user.getUserById(follower.follower_id));
           });
-          Promise.all(allFollower)
+
+          return Promise.all(allFollower)
             .then(function(result) {
-              res.send(result);
-            })
-        })
+              res.json(result)
+            });
+        });
     })
-})
+    .catch(function(err) {
+      next(err);
+    });
+});
 
 router.post('/', util.isAuth, function(req, res, next) {
   var username = req.user.username;

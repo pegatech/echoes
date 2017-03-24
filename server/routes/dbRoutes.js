@@ -12,7 +12,7 @@ var users = require('../../db/controllers/users');
 // queries database and returns user's album entries
 router.get('/', util.isAuth, function (req, res, next) {
   // get username
-  var username = req.user.username;
+  var username = req.query.username || req.user.username;
   // find all listen instances by the user
   impressions.getImpressions(username)
     .then(function (result) {

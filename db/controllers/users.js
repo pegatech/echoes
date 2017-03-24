@@ -13,7 +13,18 @@ exports.getUserById = function(id) {
   return knex('users')
     .where('id', id)
     .then(result => {
-      return result[0];
+      return _.pick(result[0], ['id', 'user', 'username']);
+    });
+};
+
+exports.getUsers = function(query) {
+  return knex('users')
+    .where('username', 'LIKE', query + '%')
+    .then(result => {
+      return result.map((user) => {
+        // don't return passwords
+        return _.pick(user, ['id', 'user', 'username']);
+      });
     });
 };
 
