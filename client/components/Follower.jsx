@@ -16,15 +16,15 @@ class Follower extends React.Component {
   render() {
     return (
       <tr className='follower feed'>
-        <td className='followerUsername col-md-2'>
+        <td className='followerUsername col-md-1'>
         <a><h3>{this.props.username}</h3></a>
         </td>
-        <td className='listenDate col-md-2'>
+        <td className='listenDate col-md-1'>
           <span className='month'><h4>{moment.months(this.state.month - 1)}</h4> </span>
           <span className='day'><h4>{this.props.date.slice(8, 10)}</h4></span>
           <span className='year'>{this.props.date.slice(0,4)}</span>
         </td>
-        <td className='col-md-2'>
+        <td className='col-md-1'>
           <div>
             <img className='albumArt' src={this.props.art} />
           </div>

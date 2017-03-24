@@ -457,3 +457,8 @@ td {
 .router-nav img {
 	height: 90%;
 }
+
+.followerTitle {
+  text-align: center;
+  background: white;
+}
