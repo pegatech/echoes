@@ -219,6 +219,10 @@ PROFILE
   text-align:left;
 }
 
+.profile-list-right {
+  text-align:right;
+}
+
 /*-------------------------
 TEXT
 -------------------------*/

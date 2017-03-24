@@ -6,7 +6,7 @@ class Profile extends React.Component {
       viewingEntry: '',
       allEntries: [],
       currentUser: '',
-      following: ['larry', 'curly', 'mo', 'bob', 'window']
+      watching: ['larry', 'curly', 'mo', 'bob', 'window']
   }
 }
 
@@ -26,6 +26,22 @@ class Profile extends React.Component {
             allEntries: response,
             currentUser: response[0].user,
           })
+          $.ajax({
+            url: '/api/follower/' + this.state.currentUser,
+            type: 'GET',
+            success: (response) => {
+              console.log(response);
+              this.setState({
+                watching: response
+              })
+            },
+            error: function (error) {
+              console.error(error);
+            }
+          })
+
+
+
         }
       },
       error: function (error) {
@@ -34,6 +50,7 @@ class Profile extends React.Component {
       }
     });
   }
+
 
   greetUser () {
     // if current user is identified
@@ -59,7 +76,7 @@ class Profile extends React.Component {
         <div className='col-md-4'>
           <h2 className="profile-header">Following:</h2>
           <table className="table-responsive table">
-            <FollowerList allFollower={this.state.following} />
+            <WatcherList allWatcher={this.state.watching} />
           </table>
         </div>
       </div>
