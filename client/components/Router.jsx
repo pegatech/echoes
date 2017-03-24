@@ -99,9 +99,12 @@ class Router extends React.Component {
           <div className="router-nav">
             <img src="/styles/logo.svg"></img>
             {this.state.isAuthenticated ? (
-              <Link className="btn btn-default" to="/profile">Profile</Link>
+              <div>
+                <a href="#" onClick={this.logout} className='btn btn-default'>Logout</a>
+                <Link to="/search" className="btn btn-default" >User Search</Link>
+                <Link className="btn btn-default" to="/profile">Profile</Link>
+              </div>
             ) : null}
-            <a href="#" onClick={this.logout} className='btn btn-default'>Logout</a>
           </div>
 
           <Route path="/login" render={props => (
@@ -114,11 +117,19 @@ class Router extends React.Component {
             <Signup signup={this.signup}
               handleInputChange={this.handleInputChange}
               state={this.state} />
-          )} />
+          )}/>
 
           <Route path="/dashboard" render={props => (
             this.state.isAuthenticated ? (
-              <App logout={this.logout} />
+              <App />
+            ) : (
+              !this.state.waitForAuth ? <Redirect to="/login" /> : null
+            )
+          )}/>
+
+          <Route path="/search" render={props => (
+            this.state.isAuthenticated ? (
+              <SearchUser />
             ) : (
               !this.state.waitForAuth ? <Redirect to="/login" /> : null
             )

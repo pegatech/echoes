@@ -17,6 +17,17 @@ exports.getUserById = function(id) {
     });
 };
 
+exports.getUsers = function(query) {
+  return knex('users')
+    .where('username', 'LIKE', query + '%')
+    .then(result => {
+      return result.map((user) => {
+        // don't return passwords
+        return _.pick(user, ['id', 'user', 'username']);
+      });
+    });
+};
+
 exports.insertUser = function(user, username, password) {
   return util.hashPasswordAsync(password)
     .then(hash => {
