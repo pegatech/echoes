@@ -11,8 +11,8 @@ const Signup = ({ signup, handleInputChange, state }) => (
           First name:
           <br />
           <input type="text"
-            name="user"
-            value={state.user}
+            name="formUser"
+            value={state.formUser}
             onChange={handleInputChange}
             className="form-control"
             placeholder="Name"
@@ -20,8 +20,8 @@ const Signup = ({ signup, handleInputChange, state }) => (
           <br /> Username:
           <br />
           <input type="text"
-            name="username"
-            value={state.username}
+            name="formUsername"
+            value={state.formUsername}
             onChange={handleInputChange}
             className="form-control"
             placeholder="Username"
@@ -29,8 +29,8 @@ const Signup = ({ signup, handleInputChange, state }) => (
           <br /> Password:
           <br />
           <input type="password"
-            name="password"
-            value={state.password}
+            name="formPassword"
+            value={state.formPassword}
             onChange={handleInputChange}
             className="form-control"
             placeholder="Password"

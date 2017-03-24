@@ -13,7 +13,7 @@ exports.getUserById = function(id) {
   return knex('users')
     .where('id', id)
     .then(result => {
-      return result[0];
+      return _.pick(result[0], ['id', 'user', 'username']);
     });
 };
 

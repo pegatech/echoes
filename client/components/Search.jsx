@@ -71,6 +71,8 @@ class Search extends React.Component {
       impression: this.state.impression,
       rating: this.state.rating
     };
+
+		console.log(newEntry);
 		// user can only submit one album
 		if (this.state.results.length === 1) {
 			$.ajax({

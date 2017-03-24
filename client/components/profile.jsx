@@ -1,52 +1,37 @@
 class Profile extends React.Component {
-  constructor(props){
+
+  constructor(props) {
     super(props);
-    
+
     this.state = {
-      viewingEntry: '',
       allEntries: [],
-      currentUser: '',
-      watching: ['larry', 'curly', 'mo', 'bob', 'window']
-  }
-}
-
-  componentWillMount() {
-    this.getUserEntries();
+      watching: [],
+      currentUser: props.target ? props.target : props.user.username,
+      isLoggedInUser: !props.target
+    };
   }
 
-  getUserEntries () {
+  componentDidMount() {
+
     $.ajax({
-      url: '/querydb',
-      type: 'GET',
-      success: (response) => {
-        // sets state of all entries
-        // sets current user name
-        if (response.length) {
-          this.setState({
-            allEntries: response,
-            currentUser: response[0].user,
-          })
-          $.ajax({
-            url: '/api/follower/' + this.state.currentUser,
-            type: 'GET',
-            success: (response) => {
-              console.log(response);
-              this.setState({
-                watching: response
-              })
-            },
-            error: function (error) {
-              console.error(error);
-            }
-          })
+      method: 'GET',
+      url: '/querydb/?username=' + this.state.currentUser,
+      success: (data) => {
 
+        console.log(data);
+        this.setState({
+          allEntries: data
+        });
+      }
+    });
 
-
-        }
-      },
-      error: function (error) {
-        console.log(error);
-        throw error;
+    $.ajax({
+      method: 'GET',
+      url: '/api/follower/' + this.state.currentUser,
+      success: (data) => {
+        this.setState({
+          watching: data
+        });
       }
     });
   }
@@ -56,16 +41,16 @@ class Profile extends React.Component {
     // if current user is identified
     if (this.state.currentUser) {
       // greet them by name
-      return `Hello, ${this.state.currentUser}!`
+      return `Hello, ${this.state.currentUser}!`;
     } else {
       // new users are greetedwith Hello
-      return `Hello!`
+      return 'Hello!';
     }
   }
 
 
   render () {
-    return (  
+    return (
       <div className="container">
         <div className='col-md-8'>
           <h2 className="profile-header">Impressions:</h2>
@@ -80,10 +65,6 @@ class Profile extends React.Component {
           </table>
         </div>
       </div>
-    )
+    );
   }
 }
-
-window.Profile = Profile;
-
-

@@ -11,8 +11,8 @@ const Login = ({state, login, handleInputChange}) => (
           Username:
           <br />
           <input type="text"
-                 name="username"
-                 value={state.username}
+                 name="formUsername"
+                 value={state.formUsername}
                  onChange={handleInputChange}
                  className="form-control"
                  placeholder="Username"
@@ -21,8 +21,8 @@ const Login = ({state, login, handleInputChange}) => (
           Password:
           <br />
           <input type="password"
-                 name="password"
-                 value={state.password}
+                 name="formPassword"
+                 value={state.formPassword}
                  onChange={handleInputChange}
                  className="form-control"
                  placeholder="Password"

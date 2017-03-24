@@ -6,9 +6,10 @@ class Router extends React.Component {
     this.state = {
       waitForAuth: true,
       isAuthenticated: false,
-      username: '',
-      password: '',
-      user: ''
+      user: null,
+      formUsername: '',
+      formPassword: '',
+      formUser: ''
     };
 
     this.handleInputChange = this.handleInputChange.bind(this);
@@ -20,11 +21,12 @@ class Router extends React.Component {
   componentDidMount() {
     $.ajax({
       method: 'GET',
-      url: '/api/users',
-      success: () => {
+      url: '/api/users/?current=true',
+      success: (data) => {
         this.setState({
           isAuthenticated: true,
-          waitForAuth: false
+          waitForAuth: false,
+          user: data
         });
       },
       error: () => {
@@ -50,11 +52,12 @@ class Router extends React.Component {
       method: 'POST',
       url: '/api/users/login',
       data: {
-        username: this.state.username,
-        password: this.state.password
+        username: this.state.formUsername,
+        password: this.state.formPassword
       },
-      success: (data, statusText, xhr) => {
+      success: (data) => {
         this.setState({
+          user: data,
           isAuthenticated: true
         });
       }
@@ -67,12 +70,13 @@ class Router extends React.Component {
       method: 'POST',
       url: '/api/users/signup',
       data: {
-        user: this.state.user,
-        username: this.state.username,
-        password: this.state.password
+        user: this.state.formUser,
+        username: this.state.formUsername,
+        password: this.state.formPassword
       },
-      success: () => {
+      success: (data) => {
         this.setState({
+          user: data,
           isAuthenticated: true
         });
       }
@@ -86,6 +90,7 @@ class Router extends React.Component {
       url: '/api/users/logout',
       success: () => {
         this.setState({
+          user: null,
           isAuthenticated: false
         });
       }
@@ -135,9 +140,9 @@ class Router extends React.Component {
             )
           )}/>
 
-          <Route path="/profile" render={props => (
+          <Route path="/profile/:username?" render={props => (
             this.state.isAuthenticated ? (
-              <Profile />
+              <Profile user={this.state.user} target={props.match.params.username}/>
             ) : (
               !this.state.waitForAuth ? <Redirect to="/login" /> : null
             )
