@@ -137,9 +137,9 @@ class Router extends React.Component {
 
           <Route path="/profile" render={props => (
             this.state.isAuthenticated ? (
-              <Profile logout={this.logout} />
+              <Profile />
             ) : (
-              <Redirect to="/" />
+              !this.state.waitForAuth ? <Redirect to="/login" /> : null
             )
           )}/>
 
