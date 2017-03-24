@@ -35,6 +35,8 @@ class Router extends React.Component {
         });
       }
     });
+
+    this.getAllFollowerImpression();
   }
 
   handleInputChange(e) {
@@ -97,6 +99,22 @@ class Router extends React.Component {
     });
   }
 
+  getAllFollowerImpression() {
+    $.ajax({
+      url: '/api/follower/',
+      type: 'GET',
+      success: (response) => {
+        this.setState({
+          allFollowerImpression: response
+        });
+      },
+      error: (err) => {
+        console.error(err);
+      }
+    })
+  }
+
+
   render() {
     return (
       <BrowserRouter>
@@ -146,6 +164,11 @@ class Router extends React.Component {
             ) : (
               !this.state.waitForAuth ? <Redirect to="/login" /> : null
             )
+          )}/>
+
+          <Route path="/feed" render={props => (
+            <FollowerList allFollowerImpression={this.state.allFollowerImpression}/>
+
           )}/>
 
           <Route exact path="/" component={Landing} />

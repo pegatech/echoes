@@ -27,6 +27,10 @@ class App extends React.Component {
             allEntries: response,
             currentUser: response[0].user
           })
+        } else {
+          this.setState({
+            allEntries: []
+          })
         }
       },
       error: function (error) {
