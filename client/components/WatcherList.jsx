@@ -5,17 +5,20 @@ class WatcherList extends React.Component {
 
   render() {
     return (
-      <tbody className='container-fluid'>
-        <tr className='row'>
-          <th className='profile-list-title col-md-9'>
-            Username
-          </th>
-        </tr>
-        {this.props.allWatcher.map((watcher) => {
-          return <Watcher WatcherName={watcher.username}
-                          key={watcher.id} />
-        })}
-      </tbody>
+      <table className='table table-responsive'>
+        <thead>
+          <tr className=''>
+            <th className='profile-list-title col-xs-9'>Username</th>
+            <th className="col-xs-3">&nbsp;</th>
+          </tr>
+        </thead>
+        <tbody className=''>
+          {this.props.allWatcher.map((watcher) => {
+            return <Watcher WatcherName={watcher.username}
+                            key={watcher.id} />
+          })}
+        </tbody>
+      </table>
     )
   }
 }

@@ -1,6 +1,6 @@
 const Signup = ({ signup, handleInputChange, state }) => (
   state.isAuthenticated ? (
-    <Redirect to="/dashboard" />
+    <Redirect to="/feed" />
   ) : (
     <div className="form-signup">
       <form onSubmit={signup}>

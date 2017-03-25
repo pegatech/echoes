@@ -212,7 +212,6 @@ PROFILE
 .profile-list-title {
   font-family: 'Raleway', sans-serif;
   font-weight: bold;
-  text-align:center;
 }
 
 .profile-list-left {
@@ -247,7 +246,7 @@ div.col-md-6.text-center {
 }
 
 .search-bar {
-  width: 100%
+  width: 100%;
 }
 
 .container-fluid.app {
@@ -328,7 +327,7 @@ header.navbar {
   border-radius: 0;
 }
 
-tbody {
+tbody, thead {
 	background-color: white;
 }
 
@@ -364,7 +363,7 @@ button.update {
 	margin-bottom: 20px;
 }
 
-table tr td div.btn-group {
+/*table tr td div.btn-group {
 	display:none;
 }
 
@@ -375,7 +374,7 @@ table tr:hover td div.btn-group {
 
 table tr.entry:hover {
 	background-color:#f9f9f9;
-}
+}*/
 
 .close {
 	margin-bottom: 10px;
@@ -448,9 +447,9 @@ td {
       	  ROUTER
 ---------------------------*/
 .router-nav {
-	height: 200px;
+	height: 150px;
 	display: flex;
-	justify-content: center;
+	justify-content: space-between;
 	align-items: center;
 }
 
@@ -458,7 +457,124 @@ td {
 	height: 90%;
 }
 
+.router-nav div {
+	margin-right: 30px;
+}
+
 .followerTitle {
   text-align: center;
   background: white;
+}
+
+.feed {
+	background-color: white;
+	border-radius: 5px;
+	margin-bottom: 40px;
+	padding-bottom: 10px;
+}
+
+
+.search-container .results {
+	height: 450px;
+	overflow: scroll;
+}
+
+.form-control {
+	margin: 0 0 5px 0;
+}
+
+input[type="date"] {
+	padding: 0 5px;
+}
+
+.search-result .artist {
+	font-weight: bold;
+}
+
+.search-result .date {
+	font-style: italic;
+}
+
+.search-result .caption {
+	text-align: center;
+	font-size: 12px;
+}
+
+.thumbnail {
+	border: none;
+	margin: 0;
+}
+
+#add-album-btn button {
+	width: 100%;
+	padding: 5px 0;
+	margin: 5px 0;
+}
+
+.feed tbody, .feed thead {
+	display: block;
+}
+
+.feed tbody {
+	height: 465px;
+	overflow: scroll;
+}
+
+.search-user {
+	display: flex;
+	justify-content: center;
+	width: 100%;
+}
+
+.user-search-input {
+	font-size: 25px;
+	padding: 20px;
+	border-radius: 15px;
+	width: 550px;
+}
+
+.search-results {
+	padding: 10px 20px;
+	border-radius: 15px;
+	width: 550px;
+	background-color: #fff;
+}
+
+.search-results .result {
+	padding: 10px 0;
+}
+
+.search-results h1 {
+	margin: 0;
+	font-size: 25px;
+}
+
+.round {
+	border-radius: 5px;
+	padding: 10px;
+	background-color: white;
+	margin-bottom: 50px;
+}
+
+table {
+	margin-bottom: 0 !important;
+}
+
+.profile-title {
+	display: inline-block;
+	color: white;
+	font-weight: bold;
+	margin: 0;
+	line-height: 45px;
+}
+
+.profile-top {
+	margin-bottom: 50px;
+	display: flex;
+	justify-content: space-between;
+}
+
+.follow, .unfollow {
+	display: inline-block;
+	height: 45px;
 }

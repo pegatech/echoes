@@ -39,18 +39,29 @@ class SearchUser extends React.Component {
 
   render() {
     return (
-      <div>
-        <input type="text"
-          name="userSearch"
-          value={this.state.userSearch}
-          onChange={this.handleInputChange} />
+      <div className="search-user">
+        <div>
+          <input type="text"
+            name="userSearch"
+            className="user-search-input form-control"
+            value={this.state.userSearch}
+            placeholder="Search By Username"
+            onChange={this.handleInputChange} />
 
-        <div className="">
-          {this.state.results.map((result) => (
-            <div className="result">
-              <h1 key={result.id}>{result.user} - {result.username}</h1>
+          {this.state.results.length !== 0 ? (
+            <div className="search-results">
+              {this.state.results.map((result) => (
+                <div className="result" key={result.id}>
+                  <Link to={'/profile/' + result.username}>
+                    <div className="row">
+                      <div className="col-xs-5"><h1 style={{'font-weight': 'bold'}}>{result.username}</h1></div>
+                      <div className="col-xs-7"><h1 style={{'text-align': 'right'}}>{result.user}</h1></div>
+                    </div>
+                  </Link>
+                </div>
+              ))}
             </div>
-          ))}
+          ) : (null)}
         </div>
       </div>
     );
