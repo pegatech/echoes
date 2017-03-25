@@ -7,7 +7,7 @@ class Profile extends React.Component {
       allEntries: [],
       watching: [],
       currentUser: props.target || props.user.username,
-      isLoggedInUser: props.target === props.user.username,
+      isLoggedInUser: props.target === props.user.username || !props.target,
       isFollowing: props.user.followers.includes(props.target)
     };
 
@@ -18,8 +18,8 @@ class Profile extends React.Component {
 
   componentWillReceiveProps(newProps) {
     this.setState({
-      currentUser: newProps.target ? newProps.target : newProps.user.username,
-      isLoggedInUser: !newProps.target,
+      currentUser: newProps.target || newProps.user.username,
+      isLoggedInUser: newProps.target === newProps.user.username || !newProps.target,
       isFollowing: newProps.user.followers.includes(newProps.target)
     }, this.getEntries);
   }

@@ -8,11 +8,13 @@ class Result extends React.Component {
 		return (
 
 
-		<div onClick={() => {this.props.setSelected(this.props.album)}} className="search-result">
-			<img src={this.props.album.artworkUrl100}/>
-			<div>{this.props.album.artistName}</div>
-			<div>{this.props.album.collectionName}</div>
-			<div>{this.props.album.releaseDate.substring(0, 4)}</div>
+		<div onClick={() => { this.props.setSelected(this.props.album)} } className="search-result thumbnail">
+			<img src={this.props.album.artworkUrl100} className="img-rounded"/>
+			<div className="caption">
+					<span className="artist">{this.props.album.artistName}</span>&nbsp;-&nbsp;
+					<span className="album">{this.props.album.collectionName}</span>&nbsp;
+					<span className="date">{this.props.album.releaseDate.substring(0, 4)}</span>
+			</div>
 		</div>
 
 

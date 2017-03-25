@@ -10,9 +10,9 @@ class Watcher extends React.Component {
           {this.props.WatcherName}
         </td>
         <td className="col-md-3">
-          <button className='remove btn btn-default'>
-            unfollow
-          </button>
+          <Link to={'/profile/' + this.props.WatcherName} className='btn btn-default'>
+            profile
+          </Link>
         </td>
       </tr>
     )

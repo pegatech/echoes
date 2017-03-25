@@ -247,7 +247,7 @@ div.col-md-6.text-center {
 }
 
 .search-bar {
-  width: 100%
+  width: 100%;
 }
 
 .container-fluid.app {
@@ -328,7 +328,7 @@ header.navbar {
   border-radius: 0;
 }
 
-tbody {
+tbody, thead {
 	background-color: white;
 }
 
@@ -364,7 +364,7 @@ button.update {
 	margin-bottom: 20px;
 }
 
-table tr td div.btn-group {
+/*table tr td div.btn-group {
 	display:none;
 }
 
@@ -375,7 +375,7 @@ table tr:hover td div.btn-group {
 
 table tr.entry:hover {
 	background-color:#f9f9f9;
-}
+}*/
 
 .close {
 	margin-bottom: 10px;
@@ -471,4 +471,58 @@ td {
 	width: 300px;
 	background-color: #fff;
 	border-top: solid #337ab7 1px;
+}
+
+.feed {
+	background-color: white;
+	border-radius: 5px;
+	margin-bottom: 50px;
+	padding-bottom: 10px;
+}
+
+
+.search-container .results {
+	height: 450px;
+	overflow: scroll;
+}
+
+.form-control {
+	margin: 0 0 5px 0;
+}
+
+input[type="date"] {
+	padding: 0 5px;
+}
+
+.search-result .artist {
+	font-weight: bold;
+}
+
+.search-result .date {
+	font-style: italic;
+}
+
+.search-result .caption {
+	text-align: center;
+	font-size: 12px;
+}
+
+.thumbnail {
+	border: none;
+	margin: 0;
+}
+
+#add-album-btn button {
+	width: 100%;
+	padding: 5px 0;
+	margin: 5px 0;
+}
+
+tbody, thead {
+	display: block;
+}
+
+tbody {
+	height: 465px;
+	overflow: scroll;
 }
