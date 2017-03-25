@@ -12,7 +12,6 @@ exports.getImpressions = function(username) {
     .join('artist', 'artist.id', 'album.artist_id')
     .join('listen_date', 'listen_date.album_impression_id', 'album_impression.id')
     .select('users.username',
-            'listen_date.created_at',
             'listen_date.date',
             'album.title',
             'artist.name',
@@ -34,7 +33,6 @@ exports.getImpressionsById = function(id) {
     .join('artist', 'artist.id', 'album.artist_id')
     .join('listen_date', 'listen_date.album_impression_id', 'album_impression.id')
     .select('users.username',
-            'listen_date.created_at',
             'listen_date.date',
             'album.title',
             'artist.name',

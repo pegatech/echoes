@@ -3,23 +3,44 @@ class FollowerList extends React.Component {
     super(props);
 
     this.state = {
-      allImpression: this.props.allFollowerImpression,
-      currentUser: this.props.currentUser
+      allImpression: [],
+      currentUser: ''
     };
   }
 
-  componentWillReceiveProps(nextProps) {
-    var merged = [].concat.apply([], nextProps.allFollowerImpression);
-    merged = nextProps.allUserImpression.concat(merged);
+  componentWillMount() {
+    this.getAllImpression();
+  }
 
-    var sorted = merged.sort(function(a, b) {
-      return new Date(b.date) - new Date(a.date);
-    });
+   getAllImpression() {
+    var getFollowerImpression = function(){
+      return $.ajax({
+                url: '/api/follower/',
+                type: 'GET'
+              })
+    }
 
-    this.setState({
-      allImpression: sorted,
-      currentUser: nextProps.currentUser
-    });
+    var getUserImpression = function() {
+      return $.ajax({
+                url: '/querydb',
+                type: 'GET',
+              })
+    }
+
+    $.when(getFollowerImpression(), getUserImpression()).done((follower, user) => {
+      var merged = [].concat.apply([], follower[0]);
+
+      merged = user[0].concat(merged);
+
+      var sorted = merged.sort(function(a, b) {
+        return new Date(b.date) - new Date(a.date);
+      });
+
+      this.setState({
+        allImpression: sorted,
+        currentUser: user[0].username
+      })
+    })
   }
 
   render() {
@@ -27,7 +48,7 @@ class FollowerList extends React.Component {
       <div className='container-fluid'>
         <h1 className='followerTitle'>Your Feed</h1>
       <div className='col-md-2'>
-        <Search getAllImpression={this.props.getAllImpression}/>
+        <Search getAllImpression={this.getAllImpression.bind(this)}/>
       </div>
       <table className='col-md-10'>
         <tbody >
