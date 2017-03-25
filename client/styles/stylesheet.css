@@ -448,14 +448,18 @@ td {
       	  ROUTER
 ---------------------------*/
 .router-nav {
-	height: 200px;
+	height: 150px;
 	display: flex;
-	justify-content: center;
+	justify-content: space-between;
 	align-items: center;
 }
 
 .router-nav img {
 	height: 90%;
+}
+
+.router-nav div {
+	margin-right: 30px;
 }
 
 .followerTitle {
@@ -476,7 +480,7 @@ td {
 .feed {
 	background-color: white;
 	border-radius: 5px;
-	margin-bottom: 50px;
+	margin-bottom: 40px;
 	padding-bottom: 10px;
 }
 

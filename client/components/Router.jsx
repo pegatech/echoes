@@ -129,9 +129,10 @@ class Router extends React.Component {
             <img src="/styles/logo.svg"></img>
             {this.state.isAuthenticated ? (
               <div>
-                <a href="#" onClick={this.logout} className='btn btn-default'>Logout</a>
-                <Link to="/search" className="btn btn-default" >User Search</Link>
+                <Link className="btn btn-default" to="/feed">Feed</Link>
                 <Link className="btn btn-default" to="/profile">Profile</Link>
+                <Link to="/search" className="btn btn-default" >Search</Link>
+                <a href="#" onClick={this.logout} className='btn btn-default'>Logout</a>
               </div>
             ) : null}
           </div>
