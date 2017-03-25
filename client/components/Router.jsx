@@ -148,9 +148,9 @@ class Router extends React.Component {
               state={this.state} />
           )}/>
 
-          <Route path="/dashboard" render={props => (
+          <Route path="/feed" render={props => (
             this.state.isAuthenticated ? (
-              <App />
+              <FollowerList />
             ) : (
               !this.state.waitForAuth ? <Redirect to="/login" /> : null
             )
@@ -174,16 +174,6 @@ class Router extends React.Component {
             ) : (
               !this.state.waitForAuth ? <Redirect to="/login" /> : null
             )
-          )}/>
-
-          <Route path="/feed" render={props => (
-            this.state.isAuthenticated ? (
-            <FollowerList />
-            ) : (
-              !this.state.waitForAuth ? <Redirect to="/login" /> :
-                null
-            )
-
           )}/>
 
           <Route exact path="/" component={Landing} />

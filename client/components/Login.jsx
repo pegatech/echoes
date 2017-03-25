@@ -1,6 +1,6 @@
 const Login = ({state, login, handleInputChange}) => (
   state.isAuthenticated ? (
-    <Redirect to="/dashboard" />
+    <Redirect to="/feed" />
   ) : (
     <div className="form-signin">
       <form onSubmit={login}>
