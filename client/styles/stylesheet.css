@@ -467,16 +467,6 @@ td {
   background: white;
 }
 
-.user-search-input {
-	width: 300px;
-}
-
-.search-results .result {
-	width: 300px;
-	background-color: #fff;
-	border-top: solid #337ab7 1px;
-}
-
 .feed {
 	background-color: white;
 	border-radius: 5px;
@@ -529,4 +519,33 @@ tbody, thead {
 tbody {
 	height: 465px;
 	overflow: scroll;
+}
+
+.search-user {
+	display: flex;
+	justify-content: center;
+	width: 100%;
+}
+
+.user-search-input {
+	font-size: 25px;
+	padding: 20px;
+	border-radius: 15px;
+	width: 550px;
+}
+
+.search-results {
+	padding: 10px 20px;
+	border-radius: 15px;
+	width: 550px;
+	background-color: #fff;
+}
+
+.search-results .result {
+	padding: 10px 0;
+}
+
+.search-results h1 {
+	margin: 0;
+	font-size: 25px;
 }
