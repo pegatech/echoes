@@ -9,7 +9,10 @@ class Router extends React.Component {
       user: null,
       formUsername: '',
       formPassword: '',
-      formUser: ''
+      formUser: '',
+      allFollowerImpression: [],
+      allUserImpression: [],
+      currentUser: ''
     };
 
     this.handleInputChange = this.handleInputChange.bind(this);
@@ -36,7 +39,8 @@ class Router extends React.Component {
       }
     });
 
-    this.getAllFollowerImpression();
+    this.getAllImpression();
+
   }
 
   handleInputChange(e) {
@@ -99,7 +103,7 @@ class Router extends React.Component {
     });
   }
 
-  getAllFollowerImpression() {
+  getAllImpression() {
     $.ajax({
       url: '/api/follower/',
       type: 'GET',
@@ -107,13 +111,32 @@ class Router extends React.Component {
         this.setState({
           allFollowerImpression: response
         });
+        $.ajax({
+          url: '/querydb',
+          type: 'GET',
+          success: (response) => {
+            if (response.length) {
+              this.setState({
+                allUserImpression: response,
+                currentUser: response[0].username
+              })
+            } else {
+              this.setState({
+                allEntries: []
+              })
+            }
+          },
+          error: function (error) {
+            console.log(error);
+            throw error;
+          }
+        })
       },
       error: (err) => {
         console.error(err);
       }
     })
   }
-
 
   render() {
     return (
@@ -167,7 +190,12 @@ class Router extends React.Component {
           )}/>
 
           <Route path="/feed" render={props => (
-            <FollowerList allFollowerImpression={this.state.allFollowerImpression}/>
+            this.state.isAuthenticated ? (
+            <FollowerList allFollowerImpression={this.state.allFollowerImpression} allUserImpression={this.state.allUserImpression} currentUser={this.state.currentUser} getAllImpression={this.getAllImpression.bind(this)}/>
+            ) : (
+              !this.state.waitForAuth ? <Redirect to="/login" /> :
+                null
+            )
 
           )}/>
 

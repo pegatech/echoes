@@ -17,8 +17,6 @@ class Profile extends React.Component {
       method: 'GET',
       url: '/querydb/?username=' + this.state.currentUser,
       success: (data) => {
-
-        console.log(data);
         this.setState({
           allEntries: data
         });

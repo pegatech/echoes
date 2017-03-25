@@ -8,7 +8,7 @@ class Search extends React.Component {
 			results: [],
 			selectedListenDate: null,
       rating: '',
-      impression: ''
+      impression: '',
 		};
 	}
   // sets default date for calendar input field
@@ -23,6 +23,7 @@ class Search extends React.Component {
 		var todayDate = new Date();
 		// uses moment.js to format date
 		var formattedDate = moment(todayDate).format('YYYY-MM-DD');
+
     // return the date
 		return formattedDate;
 	}
@@ -72,7 +73,7 @@ class Search extends React.Component {
       rating: this.state.rating
     };
 
-		console.log(newEntry);
+
 		// user can only submit one album
 		if (this.state.results.length === 1) {
 			$.ajax({
@@ -94,7 +95,7 @@ class Search extends React.Component {
             rating: ''
 					});
           // gets user entries from db and rerenders entry list
-					this.props.getUserEntries();
+					this.props.getAllImpression();
 					// clear the search bar
 					$('.search-bar').val('');
 				},

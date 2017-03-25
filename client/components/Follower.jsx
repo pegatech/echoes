@@ -3,7 +3,8 @@ class Follower extends React.Component {
     super(props);
     this.state = {
       months:["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
-      month:''
+      month:'',
+      currentUser: this.props.currentUser
     }
   }
 
@@ -14,10 +15,19 @@ class Follower extends React.Component {
   }
 
   render() {
+
+    let link = null;
+
+    if (this.state.currentUser === this.props.username) {
+      link = <a href='/profile'><h3>{this.props.username}</h3></a>
+    } else {
+      link = <a href={'/profile/'+this.props.username}><h3>{this.props.username}</h3></a>
+    }
+
     return (
       <tr className='follower feed'>
         <td className='followerUsername col-md-1'>
-        <a><h3>{this.props.username}</h3></a>
+          {link}
         </td>
         <td className='listenDate col-md-1'>
           <span className='month'><h4>{moment.months(this.state.month - 1)}</h4> </span>
