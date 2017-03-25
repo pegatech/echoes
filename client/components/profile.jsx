@@ -6,8 +6,8 @@ class Profile extends React.Component {
     this.state = {
       allEntries: [],
       watching: [],
-      currentUser: props.target ? props.target : props.user.username,
-      isLoggedInUser: !props.target,
+      currentUser: props.target || props.user.username,
+      isLoggedInUser: props.target === props.user.username,
       isFollowing: props.user.followers.includes(props.target)
     };
 
