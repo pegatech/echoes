@@ -20,12 +20,14 @@ class App extends React.Component {
       url: '/querydb',
       type: 'GET',
       success: (response) => {
-        // sets state of all entries
-        // sets current user name
         if (response.length) {
           this.setState({
             allEntries: response,
             currentUser: response[0].user
+          })
+        } else {
+          this.setState({
+            allEntries: []
           })
         }
       },

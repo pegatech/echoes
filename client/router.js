@@ -6,4 +6,4 @@ const {
   withRouter
 } = ReactRouterDOM;
 
-ReactDOM.render(<Router/>, document.getElementById('app'));
+ReactDOM.render(<Router />, document.getElementById('app'));
