@@ -25,6 +25,7 @@ class Router extends React.Component {
       method: 'GET',
       url: '/api/users/?current=true',
       success: (data) => {
+        data.followers = data.followers || [];
         this.setState({
           isAuthenticated: true,
           waitForAuth: false,
@@ -79,6 +80,7 @@ class Router extends React.Component {
         password: this.state.formPassword
       },
       success: (data) => {
+        data.followers = data.followers || [];
         this.setState({
           user: data,
           isAuthenticated: true
@@ -98,6 +100,7 @@ class Router extends React.Component {
         password: this.state.formPassword
       },
       success: (data) => {
+        data.followers = data.followers || [];
         this.setState({
           user: data,
           isAuthenticated: true

@@ -82,28 +82,32 @@ class Profile extends React.Component {
   render () {
     return (
       <div className="container">
-        <h1>{this.state.isLoggedInUser ? 'Your' : this.state.currentUser + '\'s'} Profile</h1>
+        <div className="profile-top">
 
-        {this.state.isFollowing && !this.state.isLoggedInUser ? (
-          <button onClick={this.unfollow}>Unfollow</button>
-        ) : (null) }
+          <h1 className="profile-title">{this.state.isLoggedInUser ? 'Your' : this.state.currentUser + '\'s'} Profile</h1>
 
-        {!this.state.isFollowing && !this.state.isLoggedInUser ? (
-          <button onClick={this.follow}>Follow</button>
-        ) : (null) }
+          {this.state.isFollowing && !this.state.isLoggedInUser ? (
+            <button className="unfollow btn btn-danger" onClick={this.unfollow}>Unfollow</button>
+          ) : (null) }
+
+          {!this.state.isFollowing && !this.state.isLoggedInUser ? (
+            <button className="follow btn btn-warning" onClick={this.follow}>Follow</button>
+          ) : (null) }
+
+        </div>
 
         <div className="row">
-          <div className='col-md-8'>
+          <div className='col-md-8 profile-impressions'>
             <h2 className="profile-header">Impressions:</h2>
-            <table className="table-responsive table">
+            <div className="round">
               <UserProfileList allEntries={this.state.allEntries} />
-            </table>
+            </div>
           </div>
           <div className='col-md-4'>
             <h2 className="profile-header">Following:</h2>
-            <table className="table-responsive table">
-              <WatcherList allWatcher={this.state.watching} />
-            </table>
+              <div className="round">
+                <WatcherList allWatcher={this.state.watching} />
+              </div>
           </div>
         </div>
       </div>

@@ -2,6 +2,18 @@ var knex = require('../db.js');
 var follower = require('./follower.js');
 var util = require('../../server/utilities');
 
+exports.getUserByIdWithoutFollower = function(id) {
+  return knex('users')
+    .where('id', id)
+    .then(result => _.pick(result[0], ['id', 'user', 'username']));
+};
+
+exports.getUserWithoutFollower = function(username) {
+  return knex('users')
+    .where('username', username)
+    .then(result => _.pick(result[0], ['id', 'user', 'username']));
+};
+
 exports.getUser = function(username) {
   return knex('users')
     .where('username', username)
@@ -12,7 +24,7 @@ exports.getUser = function(username) {
       return follower.getFollowers(user.id)
         .then(results => {
           var getFollowers = results.map(result => {
-            return (exports.getUserById(result.follower_id));
+            return (exports.getUserByIdWithoutFollower(result.follower_id));
           });
 
           return Promise.all(getFollowers)
@@ -34,7 +46,7 @@ exports.getUserById = function(id) {
       return follower.getFollowers(user.id)
         .then(results => {
           var getFollowers = results.map(result => {
-            return (exports.getUserById(result.follower_id));
+            return (exports.getUserByIdWithoutFollower(result.follower_id));
           });
 
           return Promise.all(getFollowers)

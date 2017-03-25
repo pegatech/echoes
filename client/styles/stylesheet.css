@@ -212,7 +212,6 @@ PROFILE
 .profile-list-title {
   font-family: 'Raleway', sans-serif;
   font-weight: bold;
-  text-align:center;
 }
 
 .profile-list-left {
@@ -512,11 +511,11 @@ input[type="date"] {
 	margin: 5px 0;
 }
 
-tbody, thead {
+.feed tbody, .feed thead {
 	display: block;
 }
 
-tbody {
+.feed tbody {
 	height: 465px;
 	overflow: scroll;
 }
@@ -548,4 +547,34 @@ tbody {
 .search-results h1 {
 	margin: 0;
 	font-size: 25px;
+}
+
+.round {
+	border-radius: 5px;
+	padding: 10px;
+	background-color: white;
+	margin-bottom: 50px;
+}
+
+table {
+	margin-bottom: 0 !important;
+}
+
+.profile-title {
+	display: inline-block;
+	color: white;
+	font-weight: bold;
+	margin: 0;
+	line-height: 45px;
+}
+
+.profile-top {
+	margin-bottom: 50px;
+	display: flex;
+	justify-content: space-between;
+}
+
+.follow, .unfollow {
+	display: inline-block;
+	height: 45px;
 }
